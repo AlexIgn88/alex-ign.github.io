@@ -54,3 +54,118 @@
  * Принимает дату создания (строка)
  * */
 // export const createRandomOperation = (createdAt: string) => {};
+
+type Category = {
+  id: string;
+  name: string;
+  photo?: string;
+};
+
+type Product = {
+  id: string;
+  name: string;
+  photo: string;
+  desc?: string;
+  createdAt: string;
+  oldPrice?: number;
+  price: number;
+  category: Category;
+};
+
+type Operation = Cost | Profit;
+
+type Cost = {
+  id: string;
+  name: string;
+  desc?: string;
+  createdAt: string;
+  amount: number;
+  category: Category;
+  type: 'Cost';
+};
+
+type Profit = {
+  id: string;
+  name: string;
+  desc?: string;
+  createdAt: string;
+  amount: number;
+  category: Category;
+  type: 'Profit';
+};
+
+const getRandomNumber = (multiplier = 10000): number => Math.floor(Math.random() * multiplier);
+
+const getRandomName = (names: string[]): string => {
+  return names[getRandomNumber(names.length)];
+};
+
+const productNames: string[] = ['cheese', 'sausage', 'chicken'];
+
+const operationTypes: string[] = ['Cost', 'Profit'];
+
+const costOperations: string[] = [
+  'Loss',
+  'Withdrawal',
+  'Fee',
+  'Transfer Out',
+  'Overdraft',
+  'Bad Investment',
+  'Bankruptcy Approaching',
+];
+
+const profitOperations: string[] = [
+  'Profit',
+  'Dividend',
+  'Investment Gain',
+  'Cash In',
+  'Interest',
+  'Refund',
+  'Big Win',
+];
+
+/**
+ * Создает случайный продукт (Product).
+ * Принимает дату создания (строка)
+ * */
+export const createRandomProduct = (createdAt: string): Product => {
+  const randomName = getRandomName(productNames);
+
+  return {
+    id: getRandomNumber().toString(),
+    name: randomName,
+    photo: `/images/products/${randomName}.png`,
+    desc: '',
+    createdAt: createdAt,
+    oldPrice: getRandomNumber(100),
+    price: getRandomNumber(100),
+    category: {
+      id: '46',
+      name: 'Cheeses & Fats',
+      photo: '/images/categories/cheeses-fats.png',
+    },
+  };
+};
+
+/**
+ * Создает случайную операцию (Operation).
+ * Принимает дату создания (строка)
+ * */
+export const createRandomOperation = (createdAt: string): Operation => {
+  const randomType = getRandomName(operationTypes);
+  const randomOperationName: string =
+    randomType === 'Cost' ? getRandomName(costOperations) : getRandomName(profitOperations);
+
+  return {
+    id: getRandomNumber().toString(),
+    name: randomOperationName,
+    desc: '',
+    createdAt: createdAt,
+    amount: getRandomNumber(1000000),
+    category: {
+      id: '42',
+      name: 'finance',
+    },
+    type: randomType as 'Cost' | 'Profit',
+  };
+};
