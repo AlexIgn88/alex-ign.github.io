@@ -18,7 +18,7 @@ export const round = (value: number, accuracy = 2): number => {
 const transformRegexp =
   /(matrix\(-?\d+(\.\d+)?, -?\d+(\.\d+)?, -?\d+(\.\d+)?, -?\d+(\.\d+)?, )(-?\d+(\.\d+)?), (-?\d+(\.\d+)?)\)/;
 
-export const getTransformFromCss = (transformCssString: string) => {
+export const getTransformFromCss = (transformCssString: string): { x: number; y: number } => {
   const data = transformCssString.match(transformRegexp);
   if (!data) return { x: 0, y: 0 };
   return {
@@ -27,7 +27,7 @@ export const getTransformFromCss = (transformCssString: string) => {
   };
 };
 
-export const getColorContrastValue = ([red, green, blue]: number[]): number =>
+export const getColorContrastValue = ([red, green, blue]: [number, number, number]): number =>
   // http://www.w3.org/TR/AERT#color-contrast
   Math.round((red * 299 + green * 587 + blue * 114) / 1000);
 
