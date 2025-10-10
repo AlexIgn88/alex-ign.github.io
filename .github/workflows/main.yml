@@ -6,11 +6,6 @@ on:
 
   # Позволяет запустить этот рабочий процесс вручную на вкладке Actions
   workflow_dispatch:
-    inputs:
-      branch:
-        description: "Ветка, из которой деплоим"
-        required: false
-        default: "main"
 
 permissions:
   contents: write
@@ -25,8 +20,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.inputs.branch }}
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -51,7 +44,6 @@ jobs:
 #        with:
 #          branch: gh-pages
 #          folder: dist
-#          target-folder: app
 
        # Собираем Storybook
       - name: Build Storybook
@@ -63,7 +55,6 @@ jobs:
         with:
           branch: gh-pages
           folder: storybook-static
-          target-folder: storybook
           commit-message: "Automatically publish Storybook"
 
       # Останавливаем выполнение строго при неудачных тестах
