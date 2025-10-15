@@ -14,14 +14,24 @@
   background-color: white;
   width: 50vw;
   height: 50vh;
+  border-radius: 20px;
 }
 
 .panel {
   display: flex;
   justify-content: flex-end;
+  margin: 20px;
+}
+
+.panel button {
+  border: 1px solid transparent;
+  border-radius: 5px;
+}
+
+.panel button:hover {
+  border-color: gray;
 }
 
 .content {
   flex-grow: 1;
-  padding: 30px;
 }

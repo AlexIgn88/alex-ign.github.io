@@ -1,23 +1,114 @@
-import type { Meta } from '@storybook/react';
-
-import ModalWindow from './modal-window';
+import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
+import ModalWindow from './modal-window';
 
-const meta: Meta<typeof ModalWindow> = {
+type Props = React.ComponentProps<typeof ModalWindow>;
+
+type StoryArgs = Props & {
+  content: string;
+  fontSize: number;
+  fontWeight: 'normal' | 'bold';
+  fontStyle: 'normal' | 'italic';
+  textColor: string;
+  backgroundColor: string;
+  textAlign: 'left' | 'center' | 'right';
+  padding: number;
+  fontFamily: 'sans-serif' | 'monospace' | 'serif';
+};
+
+const meta: Meta<StoryArgs> = {
   title: 'Components/ModalWindow',
   component: ModalWindow,
   tags: ['autodocs'],
   argTypes: {
-    visible: { description: 'Видимость модального окна' },
-    children: { description: 'Дочерний компонент' },
+    visible: {
+      description: 'Видимость модального окна',
+      control: 'boolean',
+    },
+    content: {
+      description: 'Текст внутри модального окна',
+      control: 'text',
+    },
+    fontSize: {
+      description: 'Размер шрифта (px)',
+      control: { type: 'number', min: 10, max: 40, step: 1 },
+    },
+    fontWeight: {
+      description: 'Толщина шрифта',
+      control: { type: 'select' },
+      options: ['normal', 'bold'],
+    },
+    fontStyle: {
+      description: 'Стиль шрифта',
+      control: { type: 'select' },
+      options: ['normal', 'italic'],
+    },
+    textColor: {
+      description: 'Цвет текста',
+      control: 'color',
+    },
+    backgroundColor: {
+      description: 'Цвет фона модального окна',
+      control: 'color',
+    },
+    textAlign: {
+      description: 'Расположение текста',
+      control: { type: 'select' },
+      options: ['left', 'center', 'right'],
+    },
+    padding: {
+      description: 'Размер внутренних отступов (px)',
+      control: { type: 'number', min: 10, max: 20, step: 1 },
+    },
+    fontFamily: {
+      description: 'Тип шрифта',
+      control: { type: 'select' },
+      options: ['sans-serif', 'monospace', 'serif'],
+    },
   },
 };
 
 export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const Visible = {
+export const Visible: Story = {
   args: {
     visible: true,
-    children: <div>Контент модального окна</div>,
+    content: 'Контент модального окна',
+    fontSize: 16,
+    fontWeight: 'normal',
+    fontStyle: 'normal',
+    textColor: '#333333',
+    backgroundColor: '#ffffff',
   },
+  render: ({
+    visible,
+    content,
+    fontSize,
+    fontWeight,
+    fontStyle,
+    textColor,
+    backgroundColor,
+    textAlign,
+    padding,
+    fontFamily,
+  }) => (
+    <ModalWindow visible={visible}>
+      <div
+        style={{
+          fontSize: `${fontSize}px`,
+          fontWeight,
+          fontStyle,
+          color: textColor,
+          backgroundColor,
+          textAlign: textAlign,
+          padding: `${padding}px`,
+          height: '100%',
+          fontFamily: fontFamily,
+        }}
+      >
+        {content}
+      </div>
+    </ModalWindow>
+  ),
 };
