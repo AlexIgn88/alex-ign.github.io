@@ -6,17 +6,20 @@ type Props = {
 };
 
 const AddToCart: FC<Props> = ({ count }) => {
+  if (count === 0) {
+    return (
+      <div className={s.wrapper}>
+        <button className={s.addButton}>Add to Cart</button>
+      </div>
+    );
+  }
   return (
     <div className={s.wrapper}>
-      {count === 0 ? (
-        <button className={s.addButton}>Add to Cart</button>
-      ) : (
-        <div className={s.counterWrapper}>
-          <button className={s.counterButton}>-</button>
-          <input className={s.input} type="text" value={count} readOnly />
-          <button className={s.counterButton}>+</button>
-        </div>
-      )}
+      <div className={s.counterWrapper}>
+        <button className={s.counterButton}>-</button>
+        <input className={s.input} type="text" value={count} readOnly aria-label="Quantity in cart" />
+        <button className={s.counterButton}>+</button>
+      </div>
     </div>
   );
 };
