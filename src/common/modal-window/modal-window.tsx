@@ -13,7 +13,7 @@ const ModalWindow: FC<Props> = ({ visible, children }) => {
     <div className={s.mask}>
       <div className={s.window}>
         <div className={s.panel}>
-          <button>Close</button>
+          <button>&#10006;</button>
         </div>
         <div className={s.content}>{children}</div>
       </div>
