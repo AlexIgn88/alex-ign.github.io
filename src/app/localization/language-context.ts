@@ -8,5 +8,5 @@ export type LanguageContextType = {
 
 export const LanguageContext = createContext<LanguageContextType>({
   language: Locale.en,
-  setLanguage: () => {},
+  setLanguage: () => null,
 });

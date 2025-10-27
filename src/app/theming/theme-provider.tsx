@@ -1,14 +1,27 @@
-import React, { ReactNode, useEffect, useState } from 'react';
-import { Theme, ThemeContext } from './theme-context';
+import React, { ReactNode, useEffect, useState, useCallback, useMemo } from 'react';
+import { Theme, ThemeContext, Themes } from './theme-context';
+
+const STORAGE_KEY = 'theme';
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useState<Theme>('light');
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window === 'undefined') return Themes.light;
+    return (localStorage.getItem(STORAGE_KEY) as Theme) || Themes.light;
+  });
 
   useEffect(() => {
-    document.body.dataset.theme = theme;
+    localStorage.setItem(STORAGE_KEY, theme);
+
+    const html = document.documentElement;
+    html.classList.remove(Themes.light, Themes.dark);
+    html.classList.add(theme);
   }, [theme]);
 
-  const toggleTheme = () => setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+  const toggleTheme = useCallback(() => {
+    setTheme((prev) => (prev === Themes.light ? Themes.dark : Themes.light));
+  }, []);
 
-  return <ThemeContext.Provider value={{ theme, toggleTheme }}>{children}</ThemeContext.Provider>;
+  const value = useMemo(() => ({ theme, toggleTheme, setTheme }), [theme, toggleTheme]);
+
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 };

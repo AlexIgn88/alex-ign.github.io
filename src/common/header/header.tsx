@@ -1,16 +1,18 @@
 import React from 'react';
 import Logo from '../logo/logo';
-import ThemeToggle from '../../common/theme-toggle/theme-toggle';
 import s from './header.module.scss';
+import ThemeToggle from '../../common/theme-toggle/theme-toggle';
+import LanguageToggle from '../../common/language-toggle/language-toggle';
 
 const Header = () => {
   return (
     <header className={s.header}>
-      <div className={s.logo}>
+      <div className={s.left}>
         <Logo />
-        <span>Market</span>
       </div>
-      <div className={s.controls}>
+
+      <div className={s.right}>
+        <LanguageToggle />
         <ThemeToggle />
       </div>
     </header>
