@@ -1,20 +1,28 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Header from '../common/header/header';
+import { ThemeProvider } from '../app/theming/theme-provider';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <ThemeProvider>
+      <div className="App">
+        <Header />
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Меня зовут Алексей. Работаю frontend-разработчиком, пишу на React, в качестве стейт-менеджера использую Redux
-          Toolkit. Знаком с Next.js. В рамках этого курса хочется углубить знания и отточить навыки написания
-          веб-приложений на React. Также хочется освоить вебсокеты и валидацию форм специальными библиотеками, такими
-          как formik и react-hook-form.
+        <p style={{ padding: '30px' }}>
+          Меня зовут Алексей.
+          <br />
+          Работаю frontend-разработчиком, пишу на React,
+          <br />в качестве стейт-менеджера использую Redux Toolkit. Знаком с Next.js.
+          <br />В рамках этого курса хочется углубить знания
+          <br />и отточить навыки написания веб-приложений на React.
+          <br />
+          Также хочется освоить вебсокеты и валидацию форм специальными библиотеками, такими как formik и
+          react-hook-form.
         </p>
-      </header>
-    </div>
+      </div>
+    </ThemeProvider>
   );
 }
 
