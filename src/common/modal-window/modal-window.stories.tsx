@@ -93,7 +93,7 @@ export const Visible: Story = {
     padding,
     fontFamily,
   }) => (
-    <ModalWindow visible={visible}>
+    <ModalWindow visible={visible} setVisible={(visible) => !visible}>
       <div
         style={{
           fontSize: `${fontSize}px`,

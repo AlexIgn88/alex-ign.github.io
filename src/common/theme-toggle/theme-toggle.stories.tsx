@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Header from './header';
+import ThemeToggle from './theme-toggle';
 import { ThemeProvider } from '../../app/theming/theme-provider';
 import LanguageProvider from '../../app/localization/language-provider';
 import React from 'react';
 import '../../app/App.css';
 
-const meta: Meta<typeof Header> = {
-  title: 'Components/Header (with i18n + theme)',
-  component: Header,
+const meta: Meta<typeof ThemeToggle> = {
+  title: 'Components/ThemeToggle',
+  component: ThemeToggle,
   decorators: [
     (Story) => (
       <LanguageProvider>

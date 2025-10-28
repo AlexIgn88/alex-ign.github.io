@@ -1,20 +1,26 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { ThemeProvider } from '../app/theming/theme-provider';
+import LanguageProvider from 'src/app/localization/language-provider';
+import Layout from 'src/common/layout/layout';
+import { useTranslation } from 'react-i18next';
 
 function App() {
+  const { t } = useTranslation();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Меня зовут Алексей. Работаю frontend-разработчиком, пишу на React, в качестве стейт-менеджера использую Redux
-          Toolkit. Знаком с Next.js. В рамках этого курса хочется углубить знания и отточить навыки написания
-          веб-приложений на React. Также хочется освоить вебсокеты и валидацию форм специальными библиотеками, такими
-          как formik и react-hook-form.
-        </p>
-      </header>
-    </div>
+    <LanguageProvider>
+      <ThemeProvider>
+        <div className="App">
+          <Layout />
+          <img src={logo} className="App-logo" alt="logo" />
+          <div style={{ padding: '30px', lineHeight: '1.8', fontSize: '16px' }}>
+            <p>{t('home.intro')}</p>
+          </div>
+        </div>
+      </ThemeProvider>
+    </LanguageProvider>
   );
 }
 
