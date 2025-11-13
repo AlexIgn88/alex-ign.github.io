@@ -61,7 +61,7 @@ type Category = {
   photo?: string;
 };
 
-type Product = {
+export type Product = {
   id: string;
   name: string;
   photo: string;
@@ -72,9 +72,9 @@ type Product = {
   category: Category;
 };
 
-type Operation = Cost | Profit;
+export type Operation = Cost | Profit;
 
-type Cost = {
+export type Cost = {
   id: string;
   name: string;
   desc?: string;
@@ -84,7 +84,7 @@ type Cost = {
   type: 'Cost';
 };
 
-type Profit = {
+export type Profit = {
   id: string;
   name: string;
   desc?: string;
