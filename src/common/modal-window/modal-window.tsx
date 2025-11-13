@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { createPortal } from 'react-dom';
 import s from './modal-window.module.scss';
 
 type Props = {
@@ -10,16 +11,18 @@ type Props = {
 const ModalWindow: FC<Props> = ({ visible, setVisible, children }) => {
   if (!visible) return null;
 
-  return (
-    <div className={s.mask}>
-      <div className={s.window}>
+  const modalContent = (
+    <div className={s.mask} onClick={() => setVisible(false)}>
+      <div className={s.window} onClick={(e) => e.stopPropagation()}>
         <div className={s.panel}>
-          <button onClick={(visible) => setVisible(!visible)}>&#10006;</button>
+          <button onClick={() => setVisible(false)}>&#10006;</button>
         </div>
         <div className={s.content}>{children}</div>
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 };
 
 export default ModalWindow;
