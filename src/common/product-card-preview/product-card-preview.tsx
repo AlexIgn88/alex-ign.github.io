@@ -1,24 +1,35 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
+import clsx from 'clsx';
 import s from './product-card-preview.module.scss';
 import AddToCart from '../add-to-cart/add-to-cart';
+import { useQuantity } from '../add-to-cart/use-quantity';
 
 type Props = {
   name: string;
   description: string;
   price: number;
   image: string;
+  defaultCount?: number;
+  actions?: ReactNode | ReactNode[];
+  imageProps?: React.ImgHTMLAttributes<HTMLImageElement>;
 };
 
-const ProductCardPreview: FC<Props> = ({ name, description, price, image }) => {
+const ProductCardPreview: FC<Props> = ({ name, description, price, image, defaultCount = 0, actions, imageProps }) => {
+  const { quantity, setQuantity } = useQuantity({ initial: defaultCount });
+
+  const mergedActions = React.Children.toArray(
+    actions ?? [<AddToCart key="add-to-cart" count={quantity} onChange={setQuantity} />]
+  );
+
   return (
     <div className={s.card}>
-      <img src={image} alt={name} className={s.image} />
+      <img src={image} alt={name} {...imageProps} className={clsx(s.image, imageProps?.className)} />
       <div className={s.content}>
         <h3 className={s.name}>{name}</h3>
         <p className={s.description}>{description}</p>
         <div className={s.footer}>
           <span className={s.price}>${price}</span>
-          <AddToCart count={0} />
+          <div className={s.actions}>{mergedActions}</div>
         </div>
       </div>
     </div>
