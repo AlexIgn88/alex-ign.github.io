@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import React, { FC, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { Operation, Product, createRandomOperation, createRandomProduct } from 'src/homeworks/ts1/3_write';
 import s from './items-list.module.scss';
@@ -54,11 +54,15 @@ const ItemsList: FC<Props> = ({ data, mode, renderItem, emptyState, listProps })
     setItems(data);
   }, [data]);
 
-  const listClassName = clsx(s.list, listProps?.className);
-  const mergedListProps = {
-    ...listProps,
-    className: listClassName,
-  };
+  const listClassName = useMemo(() => clsx(s.list, listProps?.className), [listProps?.className]);
+
+  const mergedListProps = useMemo(
+    () => ({
+      ...listProps,
+      className: listClassName,
+    }),
+    [listProps, listClassName]
+  );
 
   const defaultRenderer = useCallback(
     (item: Product | Operation) => {
@@ -98,12 +102,12 @@ const ItemsList: FC<Props> = ({ data, mode, renderItem, emptyState, listProps })
       const createdAt = new Date().toISOString();
 
       if (isProductArray(prev)) {
-        const newItems = Array.from({ length: 3 }, () => createRandomProduct(createdAt));
+        const newItems = Array.from({ length: 10 }, () => createRandomProduct(createdAt));
         return [...prev, ...newItems];
       }
 
       if (isOperationArray(prev)) {
-        const newItems = Array.from({ length: 3 }, () => createRandomOperation(createdAt));
+        const newItems = Array.from({ length: 10 }, () => createRandomOperation(createdAt));
         return [...prev, ...newItems];
       }
 

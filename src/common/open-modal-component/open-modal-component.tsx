@@ -7,14 +7,13 @@ type TriggerRender = (params: { isOpen: boolean; toggle: () => void; value: stri
 type RenderChildren = (params: { close: () => void; value: string }) => ReactNode;
 
 type Props = {
-  value?: string;
+  value: string;
   defaultValue?: string;
-  onChange?: (value: string) => void;
-  isOpen?: boolean;
-  defaultOpen?: boolean;
-  onOpenChange?: (open: boolean) => void;
-  renderTrigger?: TriggerRender;
-  children?: ReactNode | RenderChildren;
+  onChange: (value: string) => void;
+  isOpen: boolean;
+  onOpenChange: (open: boolean) => void;
+  renderTrigger: TriggerRender;
+  children: ReactNode | RenderChildren;
   inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
 };
 
@@ -22,8 +21,7 @@ const OpenModalComponent: FC<Props> = ({
   value,
   defaultValue = 'text',
   onChange,
-  isOpen,
-  defaultOpen = false,
+  isOpen = false,
   onOpenChange,
   renderTrigger,
   children,
@@ -40,17 +38,14 @@ const OpenModalComponent: FC<Props> = ({
     }
   };
 
-  const [internalOpen, setInternalOpen] = useState(defaultOpen);
-  const isOpenControlled = isOpen !== undefined;
-  const openState = isOpenControlled ? Boolean(isOpen) : internalOpen;
+  const [internalOpen, setInternalOpen] = useState(isOpen);
+
   const setOpenState = (next: boolean) => {
     onOpenChange?.(next);
-    if (!isOpenControlled) {
-      setInternalOpen(next);
-    }
+    setInternalOpen(next);
   };
 
-  const toggleOpen = () => setOpenState(!openState);
+  const toggleOpen = () => setOpenState(!internalOpen);
   const closeModal = () => setOpenState(false);
 
   const { className: inputClassName, onChange: inputOnChange, ...restInputProps } = inputProps ?? {};
@@ -61,9 +56,9 @@ const OpenModalComponent: FC<Props> = ({
   };
 
   const inputClassNames = clsx(s.input, inputClassName);
-  const trigger = renderTrigger?.({ isOpen: openState, toggle: toggleOpen, value: textValue }) ?? (
+  const trigger = renderTrigger?.({ isOpen: internalOpen, toggle: toggleOpen, value: textValue }) ?? (
     <button type="button" onClick={toggleOpen} className={s.button}>
-      {openState ? 'Close modal window' : 'Open modal window'}
+      {internalOpen ? 'Close modal window' : 'Open modal window'}
     </button>
   );
 
@@ -80,7 +75,7 @@ const OpenModalComponent: FC<Props> = ({
         placeholder={restInputProps.placeholder ?? 'Type something...'}
       />
       {trigger}
-      <ModalWindow visible={openState} setVisible={setOpenState}>
+      <ModalWindow visible={internalOpen} setVisible={setOpenState}>
         {modalContent ?? <div className={s.content}>{textValue}</div>}
       </ModalWindow>
     </div>
