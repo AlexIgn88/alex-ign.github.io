@@ -71,17 +71,8 @@ const meta: Meta<StoryArgs> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Visible: Story = {
-  args: {
-    visible: true,
-    content: 'Контент модального окна',
-    fontSize: 16,
-    fontWeight: 'normal',
-    fontStyle: 'normal',
-    textColor: '#333333',
-    backgroundColor: '#ffffff',
-  },
-  render: ({
+const ModalStory = (args: StoryArgs) => {
+  const {
     visible,
     content,
     fontSize,
@@ -92,23 +83,48 @@ export const Visible: Story = {
     textAlign,
     padding,
     fontFamily,
-  }) => (
-    <ModalWindow visible={visible} setVisible={(visible) => !visible}>
-      <div
-        style={{
-          fontSize: `${fontSize}px`,
-          fontWeight,
-          fontStyle,
-          color: textColor,
-          backgroundColor,
-          textAlign: textAlign,
-          padding: `${padding}px`,
-          height: '100%',
-          fontFamily: fontFamily,
-        }}
-      >
-        {content}
-      </div>
-    </ModalWindow>
-  ),
+  } = args;
+  const [isOpen, setIsOpen] = React.useState(visible);
+
+  React.useEffect(() => {
+    setIsOpen(visible);
+  }, [visible]);
+
+  return (
+    <>
+      <button type="button" onClick={() => setIsOpen(true)}>
+        Open modal
+      </button>
+      <ModalWindow visible={isOpen} setVisible={setIsOpen}>
+        <div
+          style={{
+            fontSize: `${fontSize}px`,
+            fontWeight,
+            fontStyle,
+            color: textColor,
+            backgroundColor,
+            textAlign,
+            padding: `${padding}px`,
+            height: '100%',
+            fontFamily,
+          }}
+        >
+          {content}
+        </div>
+      </ModalWindow>
+    </>
+  );
+};
+
+export const Visible: Story = {
+  args: {
+    visible: true,
+    content: 'Контент модального окна',
+    fontSize: 16,
+    fontWeight: 'normal',
+    fontStyle: 'normal',
+    textColor: '#333333',
+    backgroundColor: '#ffffff',
+  },
+  render: (args) => <ModalStory {...args} />,
 };
