@@ -4,7 +4,7 @@ import Input from 'antd/lib/input';
 import { FormikHandlers } from 'formik/dist/types';
 import { LockOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
-import { AuthFormProps } from 'src/features/forms/AuthForm';
+import { AuthFormProps } from '../types';
 import { FormItem } from 'src/shared/ui/FormItem';
 import { getValidates } from 'src/utils/validation';
 import s from './PasswordField.sass';

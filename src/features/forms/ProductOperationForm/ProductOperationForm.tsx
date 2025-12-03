@@ -13,7 +13,7 @@ import { CategoryIdField } from './CategoryIdField';
 import { CategoryNameField } from './CategoryNameField';
 import s from './ProductOperationForm.module.scss';
 
-export const ProductOperationForm = memo<ProductOperationFormProps>(
+const ProductOperationForm = memo<ProductOperationFormProps>(
   ({ className, formManager, formElement, autoFocusElement, disabled, mode }) => {
     const { values, touched, errors, submitCount, handleBlur, handleSubmit, handleChange, setFieldValue } =
       formManager;
@@ -176,4 +176,6 @@ export const ProductOperationForm = memo<ProductOperationFormProps>(
 );
 
 ProductOperationForm.displayName = 'ProductOperationForm';
+
+export default ProductOperationForm;
 

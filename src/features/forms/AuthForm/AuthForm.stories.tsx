@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React, { useRef } from 'react';
 import { Formik, FormikContextType } from 'formik';
-import { AuthForm } from './AuthForm';
+import AuthForm from './AuthForm';
 import { AuthFormValues } from './types';
 import { ThemeProvider } from '../../../app/theming/theme-provider';
 import LanguageProvider from '../../../app/localization/language-provider';

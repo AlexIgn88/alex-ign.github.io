@@ -6,7 +6,7 @@ import { PasswordField } from './PasswordField';
 import { EmailField } from './EmailField';
 import s from './AuthForm.sass';
 
-export const AuthForm = memo<AuthFormProps>(({ className, formManager, formElement, autoFocusElement, disabled }) => {
+const AuthForm = memo<AuthFormProps>(({ className, formManager, formElement, autoFocusElement, disabled }) => {
   const { values, touched, errors, submitCount, handleBlur, handleSubmit, handleChange, submitForm } = formManager;
 
   return (
@@ -40,3 +40,5 @@ export const AuthForm = memo<AuthFormProps>(({ className, formManager, formEleme
 });
 
 AuthForm.displayName = 'AuthForm';
+
+export default AuthForm;

@@ -6,7 +6,7 @@ import { NameField } from './NameField';
 import s from './ProfileForm.sass';
 import { AboutField } from './AboutField';
 
-export const ProfileForm = memo<ProfileFormProps>(
+const ProfileForm = memo<ProfileFormProps>(
   ({ className, formManager, formElement, autoFocusElement, disabled }) => {
     const { values, touched, errors, submitCount, handleBlur, handleSubmit, handleChange } = formManager;
 
@@ -40,3 +40,5 @@ export const ProfileForm = memo<ProfileFormProps>(
 );
 
 ProfileForm.displayName = 'ProfileForm';
+
+export default ProfileForm;
