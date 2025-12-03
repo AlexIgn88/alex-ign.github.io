@@ -33,6 +33,24 @@ const initialValues: AuthFormValues = {
   password: '',
 };
 
+const validate = (values: AuthFormValues): Partial<Record<keyof AuthFormValues, string>> => {
+  const errors: Partial<Record<keyof AuthFormValues, string>> = {};
+
+  if (!values.email) {
+    errors.email = 'Email is required';
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+    errors.email = 'Invalid email address';
+  }
+
+  if (!values.password) {
+    errors.password = 'Password is required';
+  } else if (values.password.length < 8) {
+    errors.password = 'Password must be at least 8 characters';
+  }
+
+  return errors;
+};
+
 export const Default: Story = {
   render: () => {
     const formElementRef = useRef<HTMLFormElement>(null);
@@ -41,8 +59,10 @@ export const Default: Story = {
     return (
       <Formik
         initialValues={initialValues}
-        onSubmit={(values) => {
+        validate={validate}
+        onSubmit={(values, { resetForm }) => {
           console.log('Form submitted:', values);
+          resetForm();
         }}
       >
         {(formik: FormikContextType<AuthFormValues>) => (
@@ -68,8 +88,10 @@ export const WithInitialValues: Story = {
           email: 'user@example.com',
           password: 'password123',
         }}
-        onSubmit={(values) => {
+        validate={validate}
+        onSubmit={(values, { resetForm }) => {
           console.log('Form submitted:', values);
+          resetForm();
         }}
       >
         {(formik: FormikContextType<AuthFormValues>) => (
@@ -92,8 +114,10 @@ export const Disabled: Story = {
     return (
       <Formik
         initialValues={initialValues}
-        onSubmit={(values) => {
+        validate={validate}
+        onSubmit={(values, { resetForm }) => {
           console.log('Form submitted:', values);
+          resetForm();
         }}
       >
         {(formik: FormikContextType<AuthFormValues>) => (
