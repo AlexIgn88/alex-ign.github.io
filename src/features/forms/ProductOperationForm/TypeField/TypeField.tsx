@@ -19,20 +19,14 @@ export type TypeFieldProps = {
 };
 
 export const TypeField = memo<TypeFieldProps>(
+  // eslint-disable-next-line react/prop-types
   ({ className, onChange, onBlur, touched, value, errors, disabled, submitCount, label }) => {
     const { validateStatus, help } = getValidates(errors, touched, submitCount);
 
     return (
-      <FormItem
-        className={cn(s?.root, className)}
-        title={label}
-        required
-        validateStatus={validateStatus}
-        help={help}
-      >
+      <FormItem className={cn(s?.root, className)} title={label} required validateStatus={validateStatus} help={help}>
         <Select
           disabled={disabled}
-          name="type"
           onChange={onChange}
           onBlur={onBlur}
           value={value}
@@ -48,4 +42,3 @@ export const TypeField = memo<TypeFieldProps>(
 );
 
 TypeField.displayName = 'TypeField';
-
