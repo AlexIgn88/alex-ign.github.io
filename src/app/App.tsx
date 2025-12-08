@@ -16,7 +16,7 @@ function App() {
           <Layout />
           <img src={logo} className="App-logo" alt="logo" />
           <div style={{ padding: '30px', lineHeight: '1.8', fontSize: '16px' }}>
-            <p>{t('home.intro')}</p>
+            <p>{t('screens.home.intro')}</p>
           </div>
         </div>
       </ThemeProvider>
