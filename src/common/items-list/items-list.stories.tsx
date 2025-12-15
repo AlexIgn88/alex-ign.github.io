@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import ItemsList from './items-list';
-import { createRandomOperation, createRandomProduct } from 'src/homeworks/ts1/3_write';
 import { Mode } from './items-list-consts';
+import { products, operations } from 'src/common/items-list/items-list-utils';
 
 const meta: Meta<typeof ItemsList> = {
   title: 'Components/ItemsList',
@@ -21,15 +21,6 @@ const meta: Meta<typeof ItemsList> = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
-
-const randomDates = Array.from({ length: 10 }, () => {
-  const d = new Date();
-  d.setDate(d.getDate() - Math.floor(Math.random() * 60));
-  return d.toISOString();
-});
-
-const products = randomDates.map((date) => createRandomProduct(date));
-const operations = randomDates.map((date) => createRandomOperation(date));
 
 export const ProductsListPreview: Story = {
   args: {

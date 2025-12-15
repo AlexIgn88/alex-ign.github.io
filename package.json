@@ -5,7 +5,7 @@
   "main": "src/index.tsx",
   "author": "Igor <spirit-drive@yandex.ru>",
   "scripts": {
-    "start": "webpack serve --mode development",
+    "dev": "webpack serve --mode development",
     "build": "webpack --mode production",
     "test": "jest src",
     "lint": "eslint src --fix",
@@ -74,6 +74,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^16.2.0",
+    "react-router-dom": "^7.10.1",
     "unchanged": "^2.2.1"
   }
 }

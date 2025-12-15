@@ -6,17 +6,29 @@ export const resources = {
         light: 'Light',
         dark: 'Dark',
       },
+      navbar: {
+        main: 'Main',
+        profile: 'Profile',
+        products: 'Products',
+        operations: 'Operations',
+        cart: 'Shopping cart',
+      },
       screens: {
         home: {
           intro: `
-My name is Alexey.  
-I work as a frontend developer, writing in React.  
-As a state manager, I use Redux Toolkit and I'm familiar with Next.js.  
-Within this course, I want to deepen my knowledge  
-and sharpen my skills in building React web applications.  
-I also want to learn working with WebSockets  
-and mastering form validation using libraries like Formik and React Hook Form.
+          My name is Alexey.  
+          I work as a frontend developer, writing in React.  
+          As a state manager, I use Redux Toolkit and I'm familiar with Next.js.  
+          Within this course, I want to deepen my knowledge  
+          and sharpen my skills in building React web applications.  
+          I also want to learn working with WebSockets  
+          and mastering form validation using libraries like Formik and React Hook Form.
         `,
+        },
+        items: {
+          buttons: {
+            create: 'Create',
+          },
         },
       },
       forms: {
@@ -50,17 +62,29 @@ and mastering form validation using libraries like Formik and React Hook Form.
         light: 'Светлая',
         dark: 'Тёмная',
       },
+      navbar: {
+        main: 'Главная',
+        profile: 'Профиль',
+        products: 'Товары',
+        operations: 'Операции',
+        cart: 'Корзина',
+      },
       screens: {
         home: {
           intro: `
-Меня зовут Алексей.  
-Работаю frontend-разработчиком, пишу на React.  
-В качестве стейт-менеджера использую Redux Toolkit. Знаком с Next.js.  
-В рамках этого курса хочется углубить знания  
-и отточить навыки написания веб-приложений на React.  
-Также хочется освоить вебсокеты и валидацию форм специальными библиотеками,  
-такими как Formik и React Hook Form.
+          Меня зовут Алексей.  
+          Работаю frontend-разработчиком, пишу на React.  
+          В качестве стейт-менеджера использую Redux Toolkit. Знаком с Next.js.  
+          В рамках этого курса хочется углубить знания  
+          и отточить навыки написания веб-приложений на React.  
+          Также хочется освоить вебсокеты и валидацию форм специальными библиотеками,  
+          такими как Formik и React Hook Form.
         `,
+        },
+        items: {
+          buttons: {
+            create: 'Создать',
+          },
         },
       },
       forms: {
