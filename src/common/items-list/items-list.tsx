@@ -44,6 +44,7 @@ const toOperationPreviewProps = (operation: Operation) => ({
 const toOperationFullProps = (operation: Operation) => ({
   ...toOperationPreviewProps(operation),
   date: operation.createdAt,
+  id: operation.id,
 });
 
 const ItemsList: FC<Props> = ({ data, mode, renderItem, emptyState, listProps }) => {

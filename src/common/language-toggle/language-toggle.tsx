@@ -1,6 +1,6 @@
 import React from 'react';
-import { useLanguage } from '../../app/localization/useLanguage';
-import { Locale } from '../../app/localization/i18n';
+import { useLanguage } from 'src/app/localization/useLanguage';
+import { Locale } from 'src/app/localization/i18n';
 import s from './language-toggle.module.scss';
 
 const LanguageToggle = () => {

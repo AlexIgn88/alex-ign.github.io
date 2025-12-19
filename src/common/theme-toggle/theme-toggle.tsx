@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme } from '../../app/theming/useTheme';
+import { useTheme } from 'src/app/theming/useTheme';
 import { useTranslation } from 'react-i18next';
 import s from './theme-toggle.module.scss';
 
@@ -10,8 +10,8 @@ const ThemeToggle = () => {
 
   return (
     <button className={s.button} onClick={toggleTheme}>
-      {isDark ? '🌞' : '🌙'}&ensp;
-      <span>{isDark ? t('theme.light') : t('theme.dark')}</span>
+      {isDark ? '🌙' : '🌞'}&ensp;
+      <span>{isDark ? t('theme.dark') : t('theme.light')}</span>
     </button>
   );
 };
