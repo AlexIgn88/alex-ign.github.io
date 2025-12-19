@@ -1,4 +1,11 @@
-import { Cost, Operation, Product, Profit } from 'src/homeworks/ts1/3_write';
+import {
+  Cost,
+  createRandomOperation,
+  createRandomProduct,
+  Operation,
+  Product,
+  Profit,
+} from 'src/homeworks/ts1/3_write';
 
 export const isProduct = (value: unknown): value is Product => {
   return (
@@ -50,3 +57,12 @@ export const isOperation = (value: unknown): value is Operation => {
 export const isOperationArray = (value: unknown): value is Operation[] => {
   return Array.isArray(value) && value.every(isOperation);
 };
+
+export const randomDates = Array.from({ length: 10 }, () => {
+  const d = new Date();
+  d.setDate(d.getDate() - Math.floor(Math.random() * 60));
+  return d.toISOString();
+});
+
+export const products = randomDates.map((date) => createRandomProduct(date));
+export const operations = randomDates.map((date) => createRandomOperation(date));
