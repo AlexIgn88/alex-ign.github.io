@@ -113,6 +113,10 @@ const ItemsList: FC<Props> = ({ data, mode, renderItem, emptyState, listProps })
   }, []);
 
   useEffect(() => {
+    if (renderItem) {
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
@@ -128,7 +132,7 @@ const ItemsList: FC<Props> = ({ data, mode, renderItem, emptyState, listProps })
     return () => {
       if (target) observer.unobserve(target);
     };
-  }, [addMoreItems]);
+  }, [addMoreItems, renderItem]);
 
   if (!items.length) {
     const resolvedEmpty = typeof emptyState === 'function' ? emptyState() : emptyState;

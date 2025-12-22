@@ -5,6 +5,7 @@ import AddToCart from '../add-to-cart/add-to-cart';
 import { useAppSelector, useAppDispatch } from 'src/store/hooks';
 import { addToCart, updateQuantity } from 'src/store/slices/cart-slice';
 import { Product } from 'src/homeworks/ts1/3_write';
+import DeleteProduct from '../delete-product/delete-product';
 
 type Props = {
   product: Product;
@@ -41,10 +42,10 @@ const ProductCardPreview: FC<Props> = ({ product, defaultCount, actions, imagePr
         key="add-to-cart"
         count={quantity}
         onChange={handleQuantityChange}
-        labels={{ add: 'Add to Cart' }}
       />,
+      <DeleteProduct key="delete-product" productId={product.id} />
     ];
-  }, [quantity, actions]);
+  }, [quantity, actions, product.id]);
 
   const { name, desc: description, price, photo: image } = product;
 

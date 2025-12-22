@@ -3,7 +3,6 @@ import { Mode } from 'src/common/items-list/items-list-consts';
 import ItemsList from 'src/common/items-list/items-list';
 import { useAppSelector } from 'src/store/hooks';
 import ProductCardPreview from 'src/common/product-card-preview/product-card-preview';
-import DeleteProduct from 'src/common/delete-product/delete-product';
 import { useTranslation } from 'react-i18next';
 import s from './shopping-cart-screen.modele.scss';
 
@@ -16,7 +15,6 @@ const ShoppingCartScreen: FC = () => {
     return (
       <div className={s.item}>
         <ProductCardPreview product={item} />
-        <DeleteProduct productId={item.id} />
       </div>
     );
   };

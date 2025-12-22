@@ -32,8 +32,10 @@
 }
 
 .counterWrapper {
+  width: 160px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   background: linear-gradient(145deg, #1e2228, #2a2f37);
   border: 1px solid rgba(255, 255, 255, 0.1);

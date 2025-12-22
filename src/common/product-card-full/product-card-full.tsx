@@ -37,7 +37,6 @@ const ProductCardFull: FC<Props> = ({ product, defaultCount, actions, imageProps
         key="add-to-cart"
         count={quantity}
         onChange={handleQuantityChange}
-        labels={{ add: 'Add to Cart' }}
       />,
     ];
   }, [quantity, actions]);

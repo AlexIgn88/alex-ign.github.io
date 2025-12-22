@@ -2,10 +2,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 10px;
 }
 
 .deleteButton {
+  width: 185px;
   background: linear-gradient(145deg, #2a2f37, #1e2228);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #f87171;

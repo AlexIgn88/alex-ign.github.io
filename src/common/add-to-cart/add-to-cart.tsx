@@ -20,7 +20,6 @@ type Props = {
   max?: number;
   step?: number;
   onChange?: (value: number) => void;
-  labels?: Partial<Record<Action, ReactNode>>;
   inputProps?: InputProps;
   children?: (context: RenderContext) => ReactNode;
 };
@@ -34,7 +33,6 @@ const AddToCart: FC<Props> = ({
   step = 1,
   onChange,
   inputProps,
-  labels,
   children,
 }) => {
   const { t } = useTranslation(); 
