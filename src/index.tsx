@@ -7,7 +7,7 @@ import LanguageProvider from 'src/app/localization/language-provider';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
-import AppInitializer from './app/AppInitializer';
+import AppInitializer from './app/appInitializer';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
