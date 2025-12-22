@@ -13,6 +13,9 @@ export const resources = {
         operations: 'Operations',
         cart: 'Shopping cart',
       },
+      header: {
+        logout: 'Logout',
+      },
       screens: {
         home: {
           intro: `
@@ -24,10 +27,22 @@ export const resources = {
           I also want to learn working with WebSockets  
           and mastering form validation using libraries like Formik and React Hook Form.
         `,
+        welcomeText: 'Welcome, {{name}}! You are logged in as {{role}}.',
+        },
+        profile: {
+          profileInfo: 'Profile Information',
+          name: 'Name',
+          email: 'Email',
+          role: 'Role',
+        },
+        cart: {
+          empty: 'Your cart is empty',
         },
         items: {
           buttons: {
             create: 'Create',
+            delete: 'Delete',
+            add: 'Add to Cart',
           },
         },
       },
@@ -69,6 +84,9 @@ export const resources = {
         operations: 'Операции',
         cart: 'Корзина',
       },
+      header: {
+        logout: 'Выйти',
+      },
       screens: {
         home: {
           intro: `
@@ -80,10 +98,22 @@ export const resources = {
           Также хочется освоить вебсокеты и валидацию форм специальными библиотеками,  
           такими как Formik и React Hook Form.
         `,
+        welcomeText: 'Добро пожаловать, {{name}}! Вы вошли как {{role}}.',
+        },
+        profile: {
+          profileInfo: 'Информация о профиле',
+          name: 'Имя',
+          email: 'Email',
+          role: 'Роль',
+        },
+        cart: {
+          empty: 'Ваша корзина пуста',
         },
         items: {
           buttons: {
             create: 'Создать',
+            delete: 'Удалить',
+            add: 'В корзину',
           },
         },
       },

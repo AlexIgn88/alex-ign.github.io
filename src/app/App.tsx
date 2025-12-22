@@ -8,6 +8,8 @@ import ProfileScreen from 'src/pages/profile-screen/profile-screen';
 import { Route, Routes } from 'react-router-dom';
 import ItemsScreen from 'src/pages/items-screen/items-screen';
 import ShoppingCartScreen from 'src/pages/shopping-cart-screen/shopping-cart-screen';
+import ProtectedRoute from './protected-route';
+import AdminRoute from './admin-route';
 
 function App() {
   return (
@@ -15,7 +17,14 @@ function App() {
       <Layout>
         <Routes>
           <Route path={APP_ROUTES.INDEX} element={<HomeScreen />} />
-          <Route path={APP_ROUTES.PROFILE} element={<ProfileScreen />} />
+          <Route
+            path={APP_ROUTES.PROFILE}
+            element={
+              <ProtectedRoute>
+                <ProfileScreen />
+              </ProtectedRoute>
+            }
+          />
           <Route path={APP_ROUTES.PRODUCTS} element={<ItemsScreen />} />
           <Route path={APP_ROUTES.OPERATIONS} element={<ItemsScreen />} />
           <Route path={APP_ROUTES.CART} element={<ShoppingCartScreen />} />
