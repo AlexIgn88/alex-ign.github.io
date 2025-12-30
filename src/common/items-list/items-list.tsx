@@ -23,15 +23,11 @@ const isProductItem = (item: Product | Operation): item is Product => 'price' in
 const isOperationItem = (item: Product | Operation): item is Operation => 'amount' in item;
 
 const toProductPreviewProps = (product: Product) => ({
-  name: product.name,
-  description: product.desc,
-  price: product.price,
-  image: product.photo,
+  product,
 });
 
 const toProductFullProps = (product: Product) => ({
-  ...toProductPreviewProps(product),
-  category: product.category.name,
+  product,
 });
 
 const toOperationPreviewProps = (operation: Operation) => ({
@@ -117,6 +113,10 @@ const ItemsList: FC<Props> = ({ data, mode, renderItem, emptyState, listProps })
   }, []);
 
   useEffect(() => {
+    if (renderItem) {
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
@@ -132,7 +132,7 @@ const ItemsList: FC<Props> = ({ data, mode, renderItem, emptyState, listProps })
     return () => {
       if (target) observer.unobserve(target);
     };
-  }, [addMoreItems]);
+  }, [addMoreItems, renderItem]);
 
   if (!items.length) {
     const resolvedEmpty = typeof emptyState === 'function' ? emptyState() : emptyState;
@@ -149,7 +149,7 @@ const ItemsList: FC<Props> = ({ data, mode, renderItem, emptyState, listProps })
           return <React.Fragment key={key}>{element}</React.Fragment>;
         })}
       </div>
-      <div ref={observerRef} style={{ height: '1px' }} aria-hidden />
+      <div ref={observerRef} className={s.observer} aria-hidden />
     </>
   );
 };

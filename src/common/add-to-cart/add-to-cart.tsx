@@ -1,6 +1,7 @@
 import React, { FC, ReactNode, useMemo } from 'react';
 import clsx from 'clsx';
 import s from './add-to-cart.module.scss';
+import { useTranslation } from 'react-i18next';
 
 type Action = 'increment' | 'decrement' | 'add';
 
@@ -19,15 +20,8 @@ type Props = {
   max?: number;
   step?: number;
   onChange?: (value: number) => void;
-  labels?: Partial<Record<Action, ReactNode>>;
   inputProps?: InputProps;
   children?: (context: RenderContext) => ReactNode;
-};
-
-const defaultLabels: Record<Action, ReactNode> = {
-  add: 'Add to Cart',
-  increment: '+',
-  decrement: '-',
 };
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
@@ -39,10 +33,9 @@ const AddToCart: FC<Props> = ({
   step = 1,
   onChange,
   inputProps,
-  labels,
   children,
 }) => {
-  const mergedLabels = useMemo(() => ({ ...defaultLabels, ...labels }), [labels]);
+  const { t } = useTranslation(); 
   const canIncrement = count < max;
   const canDecrement = count > min;
 
@@ -91,7 +84,7 @@ const AddToCart: FC<Props> = ({
   const defaultView =
     count <= min ? (
       <button type="button" className={s.addButton} onClick={() => handleAction('add')}>
-        {mergedLabels.add}
+        {t('screens.items.buttons.add')}
       </button>
     ) : (
       <div className={s.counterWrapper}>
@@ -101,7 +94,7 @@ const AddToCart: FC<Props> = ({
           onClick={() => handleAction('decrement')}
           disabled={!canDecrement}
         >
-          {mergedLabels.decrement}
+          -
         </button>
         <input {...resolvedInputProps} />
         <button
@@ -110,7 +103,7 @@ const AddToCart: FC<Props> = ({
           onClick={() => handleAction('increment')}
           disabled={!canIncrement}
         >
-          {mergedLabels.increment}
+          +
         </button>
       </div>
     );
