@@ -50,7 +50,7 @@ export const CustomRender: Story = {
     count: 2,
   },
   render: (args) => (
-    <ControlledAddToCart {...args} labels={{ add: 'Добавить', increment: '➕', decrement: '➖' }}>
+    <ControlledAddToCart {...args}>
       {({ canDecrement, canIncrement, onAction, count: currentCount }) => (
         <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
           <button type="button" disabled={!canDecrement} onClick={() => onAction('decrement')}>
