@@ -8,7 +8,7 @@ import {
   FormikContext,
 } from 'src/features/forms/product-operation-form/product-operation-form-consts';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
-import { addProduct, updateProduct, addOperation, updateOperation } from 'src/store/slices/items-slice';
+import { addProduct, updateProduct, addOperation, updateOperation } from 'src/features/items/items-slice';
 import { Product, Operation, createRandomProduct, createRandomOperation } from 'src/homeworks/ts1/3_write';
 import { useLocation } from 'react-router-dom';
 
@@ -72,7 +72,7 @@ const ItemFormModal: FC<Props> = ({ mode, itemId, onClose }) => {
 
   const handleSubmit = (values: any) => {
     const createdAt = existingItem ? existingItem.createdAt : new Date().toISOString();
-    
+
     if (isProducts) {
       const product: Product = {
         id: existingItem?.id || Date.now().toString(),

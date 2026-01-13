@@ -1,15 +1,10 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-export type Profile = {
-  id: string;
-  name: string;
-  email: string;
-  role: 'admin' | 'user';
-}
+import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { Profile } from 'src/features/profile/profile-consts';
 
 type ProfileState = {
   profile: Profile | null;
-}
+};
 
 const initialState: ProfileState = {
   profile: null,
@@ -30,4 +25,3 @@ const profileSlice = createSlice({
 
 export const { setProfile, clearProfile } = profileSlice.actions;
 export default profileSlice.reducer;
-

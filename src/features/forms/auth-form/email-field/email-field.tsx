@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import cn from 'clsx';
 import { Input } from 'antd';
-import { FormikHandlers } from 'formik/dist/types';
+import type { FormikHandlers } from 'formik/dist/types';
 import { UserOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { AuthFormProps } from '../types';
@@ -42,7 +42,7 @@ const EmailField = memo<EmailFieldProps>(
           onPressEnter={onPressEnter}
           data-cy="input"
           autoFocus
-          type="email"
+          // type="email"
           name="email"
           onChange={onChange}
           onBlur={onBlur}

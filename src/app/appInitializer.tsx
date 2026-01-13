@@ -1,7 +1,7 @@
 import React, { useEffect, ReactNode } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { loadTokenFromStorage } from '../store/thunks/auth-thunks';
-import { setProducts, setOperations } from '../store/slices/items-slice';
+import { loadTokenFromStorage } from '../features/auth/auth-thunks';
+import { setProducts, setOperations } from '../features/items/items-slice';
 import { products, operations } from '../common/items-list/items-list-utils';
 
 type Props = {
@@ -10,7 +10,6 @@ type Props = {
 
 const AppInitializer: React.FC<Props> = ({ children }) => {
   const dispatch = useAppDispatch();
-  const isInitialized = useAppSelector((state) => state.auth.isInitialized);
   const productsInitialized = useAppSelector((state) => state.items.products.length > 0);
 
   useEffect(() => {
@@ -28,4 +27,3 @@ const AppInitializer: React.FC<Props> = ({ children }) => {
 };
 
 export default AppInitializer;
-

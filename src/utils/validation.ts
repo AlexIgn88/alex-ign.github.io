@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { FormikContextType } from 'formik';
+import type { FormikContextType } from 'formik';
 import { get } from './unchanged';
 import { Help } from '../shared/ui/FormItem';
 

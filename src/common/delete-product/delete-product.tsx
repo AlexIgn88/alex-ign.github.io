@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import s from './delete-product.module.scss';
 import { useAppDispatch } from 'src/store/hooks';
-import { removeFromCart } from 'src/store/slices/cart-slice';
+import { removeFromCart } from 'src/features/cart/cart-slice';
 import { useTranslation } from 'react-i18next';
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 const DeleteProduct: FC<Props> = ({ productId }) => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  
+
   const handleDelete = () => {
     dispatch(removeFromCart(productId));
   };

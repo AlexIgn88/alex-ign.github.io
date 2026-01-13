@@ -1,7 +1,8 @@
-import { Middleware } from '@reduxjs/toolkit';
-import { setToken } from '../slices/auth-slice';
-import { setProfile, clearProfile } from '../slices/profile-slice';
-import { TOKEN_STORAGE_KEY, createFakeProfile } from 'src/common/common-consts';
+import type { Middleware } from '@reduxjs/toolkit';
+import { setToken } from 'src/features/auth/auth-slice';
+import { setProfile, clearProfile } from 'src/features/profile/profile-slice';
+import { TOKEN_STORAGE_KEY } from 'src/common/common-consts';
+import { createFakeProfile } from 'src/features/profile/profile-consts';
 
 // Middleware для синхронизации токена между вкладками
 export const storageSyncMiddleware: Middleware = (store) => {
