@@ -2,7 +2,7 @@ import React, { FC, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
 import AuthForm from 'src/features/forms/auth-form/auth-form';
-import { API } from 'src/common/common-consts';
+import { API, API_BASE_URL } from 'src/common/common-consts';
 
 import { createFakeProfile } from 'src/features/profile/profile-consts';
 import { saveTokenToStorage } from 'src/features/auth/auth-thunks';
@@ -25,7 +25,7 @@ const SignupScreen: FC = () => {
 
   const handleSignup = async (formData: typeof initialValues) => {
     try {
-      const response = await fetch(`/api${API.SIGNUP}`, {
+      const response = await fetch(`${API_BASE_URL}${API.SIGNUP}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

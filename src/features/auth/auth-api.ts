@@ -1,11 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { API } from 'src/common/common-consts';
+import { API, API_BASE_URL } from 'src/common/common-consts';
 import { SignUpBody, SignupSuccessResponse, ApiError } from './auth-consts';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: '/api',
+    baseUrl: API_BASE_URL,
     prepareHeaders: (headers) => {
       headers.set('Content-Type', 'application/json');
       return headers;

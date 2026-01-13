@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { PayloadAction } from '@reduxjs/toolkit';
-import { API } from 'src/common/common-consts';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { API, API_BASE_URL } from 'src/common/common-consts';
 import { SignUpBody, SignupSuccessResponse, ApiError } from 'src/features/auth/auth-consts';
 import { signupSagaRequest, signupSagaSuccess, signupSagaFailure } from './auth-slice';
 import { saveTokenToStorage } from './auth-thunks';
@@ -13,7 +13,7 @@ type SignupSagaPayload = {
 };
 
 async function signupApi(data: SignUpBody): Promise<SignupSuccessResponse | { errors: ApiError[] }> {
-  const response = await fetch(`/api${API.SIGNUP}`, {
+  const response = await fetch(`${API_BASE_URL}${API.SIGNUP}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
