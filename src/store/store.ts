@@ -6,6 +6,7 @@ import cartReducer from '../features/cart/cart-slice';
 import itemsReducer from '../features/items/items-slice';
 import { storageSyncMiddleware } from './middleware/storage-sync';
 import { rootSaga } from './root-saga';
+import { authApi } from '../features/auth/auth-api';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -15,9 +16,10 @@ export const store = configureStore({
     profile: profileReducer,
     cart: cartReducer,
     items: itemsReducer,
+    [authApi.reducerPath]: authApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(storageSyncMiddleware, sagaMiddleware),
+    getDefaultMiddleware().concat(storageSyncMiddleware, sagaMiddleware, authApi.middleware),
 });
 
 sagaMiddleware.run(rootSaga);

@@ -40,6 +40,9 @@ const HomeScreen: FC = () => {
         <li>
           <Link to={APP_ROUTES.SIGNUP_REDUX_SAGA_SCREEN}>Signup with Redux Saga</Link>
         </li>
+        <li>
+          <Link to={APP_ROUTES.SIGNUP_REDUX_TOOLKIT_QUERY_SCREEN}>Signup with Redux Toolkit Query</Link>
+        </li>
       </ul>
     </main>
   );
