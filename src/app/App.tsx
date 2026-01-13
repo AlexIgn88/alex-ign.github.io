@@ -11,6 +11,7 @@ import ShoppingCartScreen from 'src/pages/shopping-cart-screen/shopping-cart-scr
 import ProtectedRoute from './protected-route';
 import LoginScreen from 'src/pages/login-screen/login-screen';
 import SignupReduxThunkScreen from 'src/pages/signup-redux-thunk-screen/signup-redux-thunk-screen';
+import SignupReduxSagaScreen from 'src/pages/signup-redux-saga-screen/signup-redux-saga-screen';
 import SignupScreen from 'src/pages/signup-screen/signup-screen';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path={APP_ROUTES.LOGIN} element={<LoginScreen />} />
           <Route path={APP_ROUTES.SIGNUP_FUNCTIONAL_COMPONENT_SCREEN} element={<SignupScreen />} />
           <Route path={APP_ROUTES.SIGNUP_REDUX_THUNK_SCREEN} element={<SignupReduxThunkScreen />} />
+          <Route path={APP_ROUTES.SIGNUP_REDUX_SAGA_SCREEN} element={<SignupReduxSagaScreen />} />
           <Route
             path={APP_ROUTES.PROFILE}
             element={

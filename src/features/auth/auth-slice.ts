@@ -33,6 +33,15 @@ const authSlice = createSlice({
     removeToken: (state) => {
       state.token = null;
     },
+    signupSagaRequest: (state, action: PayloadAction<{ data: SignUpBody; navigate: (path: string) => void }>) => {
+      state.error = null;
+    },
+    signupSagaSuccess: (state) => {
+      state.error = null;
+    },
+    signupSagaFailure: (state, action: PayloadAction<ApiError[]>) => {
+      state.error = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -50,7 +59,8 @@ const authSlice = createSlice({
 
 export default authSlice.reducer;
 
-export const { setToken, setInitialized, removeToken } = authSlice.actions;
+export const { setToken, setInitialized, removeToken, signupSagaRequest, signupSagaSuccess, signupSagaFailure } =
+  authSlice.actions;
 
 export const selectAuthError = (state: RootState) => state.auth.error;
 
