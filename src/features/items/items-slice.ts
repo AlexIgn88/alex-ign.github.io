@@ -1,10 +1,12 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+
 import { Product, Operation } from 'src/homeworks/ts1/3_write';
 
 type ItemsState = {
   products: Product[];
   operations: Operation[];
-}
+};
 
 const initialState: ItemsState = {
   products: [],
@@ -45,4 +47,3 @@ const itemsSlice = createSlice({
 export const { setProducts, setOperations, addProduct, updateProduct, addOperation, updateOperation } =
   itemsSlice.actions;
 export default itemsSlice.reducer;
-

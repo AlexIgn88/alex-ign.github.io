@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import s from './product-card-preview.module.scss';
 import AddToCart from '../add-to-cart/add-to-cart';
 import { useAppSelector, useAppDispatch } from 'src/store/hooks';
-import { addToCart, updateQuantity } from 'src/store/slices/cart-slice';
+import { addToCart, updateQuantity } from 'src/features/cart/cart-slice';
 import { Product } from 'src/homeworks/ts1/3_write';
 import DeleteProduct from '../delete-product/delete-product';
 
@@ -16,9 +16,7 @@ type Props = {
 
 const ProductCardPreview: FC<Props> = ({ product, defaultCount, actions, imageProps }) => {
   const dispatch = useAppDispatch();
-  const cartItem = useAppSelector((state) =>
-    state.cart.items.find((item) => item.product.id === product.id)
-  );
+  const cartItem = useAppSelector((state) => state.cart.items.find((item) => item.product.id === product.id));
   const quantity = cartItem?.quantity ?? defaultCount ?? 0;
 
   const handleQuantityChange = (newQuantity: number) => {
@@ -38,12 +36,8 @@ const ProductCardPreview: FC<Props> = ({ product, defaultCount, actions, imagePr
       return React.Children.toArray(actions);
     }
     return [
-      <AddToCart
-        key="add-to-cart"
-        count={quantity}
-        onChange={handleQuantityChange}
-      />,
-      <DeleteProduct key="delete-product" productId={product.id} />
+      <AddToCart key="add-to-cart" count={quantity} onChange={handleQuantityChange} />,
+      <DeleteProduct key="delete-product" productId={product.id} />,
     ];
   }, [quantity, actions, product.id]);
 

@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './slices/auth-slice';
-import profileReducer from './slices/profile-slice';
-import cartReducer from './slices/cart-slice';
-import itemsReducer from './slices/items-slice';
+import authReducer from '../features/auth/auth-slice';
+import profileReducer from '../features/profile/profile-slice';
+import cartReducer from '../features/cart/cart-slice';
+import itemsReducer from '../features/items/items-slice';
 import { storageSyncMiddleware } from './middleware/storage-sync';
 
 export const store = configureStore({
@@ -17,4 +17,3 @@ export const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-

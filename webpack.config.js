@@ -19,6 +19,13 @@ module.exports = (_, args) => {
       hot: true,
       historyApiFallback: true,
       host,
+      proxy: {
+        '/api': {
+          target: 'http://19429ba06ff2.vps.myjino.ru',
+          changeOrigin: true,
+          secure: false,
+        },
+      },
     },
     resolve: {
       modules: [src, 'node_modules'],
