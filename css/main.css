@@ -75,14 +75,11 @@ body,
 .theme-toggle-module_button-Okjbx{width:120px;height:40px;padding:10px 18px;border:none;border-radius:12px;cursor:pointer;font-weight:600;font-family:"Inter",sans-serif;background:linear-gradient(145deg, #2a2f37, #1e2228);color:#e5e7eb;box-shadow:0 4px 15px rgba(0,0,0,.6);transition:all .3s ease}.theme-toggle-module_button-Okjbx:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.7)}.theme-toggle-module_button-Okjbx:active{transform:translateY(1px);box-shadow:inset 0 0 10px rgba(255,255,255,.1)}
 .language-toggle-module_button-pN2ZR{width:120px;height:40px;background:linear-gradient(145deg, #ffffff, #e5e7eb);color:#111827;border:1px solid rgba(0,0,0,.1);border-radius:12px;padding:8px 16px;cursor:pointer;font-family:"Inter",sans-serif;font-weight:600;transition:all .25s ease;box-shadow:0 2px 6px rgba(0,0,0,.1),inset 0 0 8px rgba(255,255,255,.05)}.language-toggle-module_button-pN2ZR:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(0,0,0,.15),inset 0 0 10px rgba(255,255,255,.08)}.language-toggle-module_button-pN2ZR:active{transform:scale(0.97)}
 .navbar-module_navbar-fTBEJ{display:flex;gap:20px;padding:14px 24px;font-family:"Inter",sans-serif}.navbar-module_link-owwBX{color:#dbe4ff;font-weight:600;letter-spacing:.05em;text-decoration:none;padding:8px 14px;border-radius:8px;transition:background .3s ease,color .3s ease,transform .25s ease}.navbar-module_link-owwBX:hover{background:rgba(140,170,255,.25);transform:translateY(-2px);color:#fff}.navbar-module_active-ViBrO{background:linear-gradient(135deg, #3557d6, #1e2f80);color:#fff;border:1px solid rgba(140,170,255,.5);box-shadow:0 4px 15px rgba(60,90,255,.4);transform:translateY(-1px)}
+.home-screen-module_welcomeText-stzLp{padding:30px;line-height:1.8;font-size:16px;font-weight:600;color:#000;text-align:center;background-color:#f0f0f0;border-radius:10px;border:1px solid #e0e0e0;box-shadow:0 0 10px 0 rgba(0,0,0,.1);margin:20px;max-width:600px;margin:0 auto}.home-screen-module_welcomeTextContainer-jzWPJ{max-width:400px;margin:20px auto}.home-screen-module_links-KdAT0{list-style-type:none;font-size:20px;font-weight:600;padding-left:0;display:flex;flex-direction:column;gap:20px}
 .Title_root-SiLUQ{font-weight:600;line-height:1.5}html.light .Title_root-SiLUQ{color:#23272f}html.dark .Title_root-SiLUQ{color:#f6f7f9}.Title_required-Re6Fa:after{display:inline-block;padding-left:4px;content:"*";font-size:12px}html.light .Title_required-Re6Fa:after{color:red}html.dark .Title_required-Re6Fa:after{color:red}
 
 
-
-
 .form-module_buttonContainer-mhNtG{display:flex;justify-content:center}.form-module_buttonWrapper-jkDNR{width:50%}
-.home-screen-module_welcomeText-stzLp{padding:30px;line-height:1.8;font-size:16px;font-weight:600;color:#000;text-align:center;background-color:#f0f0f0;border-radius:10px;border:1px solid #e0e0e0;box-shadow:0 0 10px 0 rgba(0,0,0,.1);margin:20px;max-width:600px;margin:0 auto}.home-screen-module_welcomeTextContainer-jzWPJ{max-width:400px;margin:20px auto}
-
 
 
 .profile-screen-module_main-oZAjW{display:flex;justify-content:center}.profile-screen-module_profileInfo-Eo_vQ{margin-bottom:20px;padding:10px;background:#f0f0f0;border-radius:5px}.profile-screen-module_profileForm-eSzoL{width:90%}
@@ -106,5 +103,9 @@ body,
 .category-name-field-module_root-XtWbS{margin-bottom:0;width:100%}
 .product-operation-form-module_root-kTpLY{display:flex;flex-direction:column;max-width:600px;width:100%;padding:32px;background:rgba(0,0,0,0)}
 .shopping-cart-screen-modele_empty-ex6Ul{text-align:center;padding:40px;font-size:1.1rem;color:#6b7280;background-color:#f0f0f0;border-radius:10px;border:1px solid #e0e0e0;box-shadow:0 0 10px 0 rgba(0,0,0,.1);margin:20px;max-width:600px;margin:0 auto;padding:20px;line-height:1.8;font-size:16px;font-weight:600;color:#000;text-align:center}.shopping-cart-screen-modele_item-JrG3f{position:relative}
+
+
+
+.signup-redux-thunk-screen-module_welcomeText-ol4QN{padding:30px;line-height:1.8;font-size:16px;font-weight:600;color:#000;text-align:center;background-color:#f0f0f0;border-radius:10px;border:1px solid #e0e0e0;box-shadow:0 0 10px 0 rgba(0,0,0,.1);margin:20px;max-width:600px;margin:0 auto}.signup-redux-thunk-screen-module_welcomeTextContainer-ke0h_{max-width:400px;margin:20px auto}.signup-redux-thunk-screen-module_error-wt5to{margin-top:12px;padding:10px;color:#ff4d4f;background:#fff1f0;border:1px solid #ffa39e;border-radius:6px}
 
 /*# sourceMappingURL=main.css.map*/
