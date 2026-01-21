@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import s from './product-card-full.module.scss';
 import AddToCart from '../add-to-cart/add-to-cart';
 import { useAppSelector, useAppDispatch } from 'src/store/hooks';
-import { addToCart, updateQuantity } from 'src/store/slices/cart-slice';
+import { addToCart, updateQuantity } from 'src/features/cart/cart-slice';
 import { Product } from 'src/homeworks/ts1/3_write';
 
 type Props = {
@@ -15,9 +15,7 @@ type Props = {
 
 const ProductCardFull: FC<Props> = ({ product, defaultCount, actions, imageProps }) => {
   const dispatch = useAppDispatch();
-  const cartItem = useAppSelector((state) =>
-    state.cart.items.find((item) => item.product.id === product.id)
-  );
+  const cartItem = useAppSelector((state) => state.cart.items.find((item) => item.product.id === product.id));
   const quantity = cartItem?.quantity ?? defaultCount ?? 0;
 
   const handleQuantityChange = (newQuantity: number) => {
@@ -32,13 +30,7 @@ const ProductCardFull: FC<Props> = ({ product, defaultCount, actions, imageProps
     if (actions) {
       return React.Children.toArray(actions);
     }
-    return [
-      <AddToCart
-        key="add-to-cart"
-        count={quantity}
-        onChange={handleQuantityChange}
-      />,
-    ];
+    return [<AddToCart key="add-to-cart" count={quantity} onChange={handleQuantityChange} />];
   }, [quantity, actions]);
 
   const { name, desc: description, price, photo: image, category } = product;
