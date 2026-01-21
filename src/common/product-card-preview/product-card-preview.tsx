@@ -14,10 +14,10 @@ type Props = {
   imageProps?: React.ImgHTMLAttributes<HTMLImageElement>;
 };
 
-const ProductCardPreview: FC<Props> = ({ product, defaultCount, actions, imageProps }) => {
+const ProductCardPreview: FC<Props> = ({ product, defaultCount = 0, actions, imageProps }) => {
   const dispatch = useAppDispatch();
   const cartItem = useAppSelector((state) => state.cart.items.find((item) => item.product.id === product.id));
-  const quantity = cartItem?.quantity ?? defaultCount ?? 0;
+  const quantity = cartItem?.quantity ?? defaultCount;
 
   const handleQuantityChange = (newQuantity: number) => {
     if (cartItem) {
