@@ -21,7 +21,7 @@ const ItemsScreen: FC = () => {
   const operations = useAppSelector((state) => state.items.operations);
   const items = isProducts ? products : operations;
   const profile = useAppSelector((state) => state.profile.profile);
-  const isAdmin = profile?.role === 'admin';
+  // const isAdmin = profile?.role === 'admin';
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -40,7 +40,8 @@ const ItemsScreen: FC = () => {
 
   return (
     <main>
-      {isAdmin && (
+      {/*{isAdmin && (*/}
+      {profile && (
         <div className={s.controlPanel}>
           <button className={s.controlButton} onClick={() => navigate(`${pathname}?modal=create`)}>
             {t('screens.items.buttons.create')}

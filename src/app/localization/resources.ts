@@ -27,7 +27,7 @@ export const resources = {
           I also want to learn working with WebSockets  
           and mastering form validation using libraries like Formik and React Hook Form.
         `,
-        welcomeText: 'Welcome, {{name}}! You are logged in as {{role}}.',
+          welcomeText: 'Welcome, {{name}}!',
         },
         profile: {
           profileInfo: 'Profile Information',
@@ -98,7 +98,7 @@ export const resources = {
           Также хочется освоить вебсокеты и валидацию форм специальными библиотеками,  
           такими как Formik и React Hook Form.
         `,
-        welcomeText: 'Добро пожаловать, {{name}}! Вы вошли как {{role}}.',
+          welcomeText: 'Добро пожаловать, {{name}}!',
         },
         profile: {
           profileInfo: 'Информация о профиле',

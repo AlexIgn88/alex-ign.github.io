@@ -1,9 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { Profile } from 'src/features/profile/profile-consts';
+import { LoadProfileSuccessResponse, Profile, UserProfile } from 'src/features/profile/profile-consts';
+import { ApiError } from 'src/features/auth/auth-consts';
+import { API, API_BASE_URL } from 'src/common/common-consts';
+import { saveTokenToStorage } from 'src/features/auth/auth-thunks';
 
 type ProfileState = {
-  profile: Profile | null;
+  profile: UserProfile | Profile | null;
 };
 
 const initialState: ProfileState = {
@@ -14,7 +17,7 @@ const profileSlice = createSlice({
   name: 'profile',
   initialState,
   reducers: {
-    setProfile: (state, action: PayloadAction<Profile | null>) => {
+    setProfile: (state, action: PayloadAction<UserProfile | Profile | null>) => {
       state.profile = action.payload;
     },
     clearProfile: (state) => {
@@ -25,3 +28,23 @@ const profileSlice = createSlice({
 
 export const { setProfile, clearProfile } = profileSlice.actions;
 export default profileSlice.reducer;
+
+export const loadProfile = createAsyncThunk<LoadProfileSuccessResponse, { token: string }, { rejectValue: ApiError[] }>(
+  'profile/loadProfile',
+  async ({ token }, { dispatch, rejectWithValue }) => {
+    const response = await fetch(`${API_BASE_URL}${API.PROFILE}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const result = await response.json();
+
+    if (result.errors) {
+      return rejectWithValue(result.errors as ApiError[]);
+    }
+
+    // console.log('profile/loadProfile profile', result);
+    dispatch(setProfile(result));
+  }
+);

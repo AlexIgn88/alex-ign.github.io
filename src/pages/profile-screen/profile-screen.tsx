@@ -12,11 +12,11 @@ const ProfileScreen: FC = () => {
   const autoFocusElementRef = useRef(null);
   const profile = useAppSelector((state) => state.profile.profile);
   const { t } = useTranslation();
-  
+
   const profileInitialValues = useMemo(() => {
     if (profile) {
       return {
-        name: profile.name,
+        // name: profile.name,
         email: profile.email,
       };
     }
@@ -28,9 +28,11 @@ const ProfileScreen: FC = () => {
       {profile && (
         <div className={s.profileInfo}>
           <h2>{t('screens.profile.profileInfo')}</h2>
-          <p>{t('screens.profile.name')}: {profile.name}</p>
-          <p>{t('screens.profile.email')}: {profile.email}</p>
-          <p>{t('screens.profile.role')}: {profile.role}</p>
+          {/*<p>{t('screens.profile.name')}: {profile.name}</p>*/}
+          <p>
+            {t('screens.profile.email')}: {profile.email}
+          </p>
+          {/*<p>{t('screens.profile.role')}: {profile.role}</p>*/}
         </div>
       )}
       <Formik
