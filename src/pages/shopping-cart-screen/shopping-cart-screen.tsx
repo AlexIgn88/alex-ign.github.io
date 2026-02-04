@@ -1,6 +1,6 @@
 import React, { FC, useMemo } from 'react';
-import { Mode } from 'src/common/items-list/items-list-consts';
-import ItemsList from 'src/common/items-list/items-list';
+import { Mode } from 'src/features/items/items-list/items-list-consts';
+import ItemsList from 'src/features/items/items-list/items-list';
 import { useAppSelector } from 'src/store/hooks';
 import ProductCardPreview from 'src/common/product-card-preview/product-card-preview';
 import { useTranslation } from 'react-i18next';

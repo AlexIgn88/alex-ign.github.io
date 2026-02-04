@@ -2,10 +2,10 @@ import React, { FC, ReactNode, useCallback, useEffect, useMemo, useRef, useState
 import clsx from 'clsx';
 import { Operation, Product, createRandomOperation, createRandomProduct } from 'src/homeworks/ts1/3_write';
 import s from './items-list.module.scss';
-import ProductCardPreview from '../product-card-preview/product-card-preview';
-import ProductCardFull from '../product-card-full/product-card-full';
-import OperationCardPreview from '../operation-card-preview/operation-card-preview';
-import OperationCardFull from '../operation-card-full/operation-card-full';
+import ProductCardPreview from '../../../common/product-card-preview/product-card-preview';
+import ProductCardFull from '../../../common/product-card-full/product-card-full';
+import OperationCardPreview from '../../../common/operation-card-preview/operation-card-preview';
+import OperationCardFull from '../../../common/operation-card-full/operation-card-full';
 import { Mode } from './items-list-consts';
 import { isProductArray, isOperationArray } from './items-list-utils';
 
@@ -38,9 +38,7 @@ const toOperationPreviewProps = (operation: Operation) => ({
 });
 
 const toOperationFullProps = (operation: Operation) => ({
-  ...toOperationPreviewProps(operation),
-  date: operation.createdAt,
-  id: operation.id,
+  operation,
 });
 
 const ItemsList: FC<Props> = ({ data, mode, renderItem, emptyState, listProps }) => {
@@ -112,32 +110,32 @@ const ItemsList: FC<Props> = ({ data, mode, renderItem, emptyState, listProps })
     });
   }, []);
 
-  useEffect(() => {
-    if (renderItem) {
-      return;
-    }
+  // useEffect(() => {
+  //   if (renderItem) {
+  //     return;
+  //   }
+  //
+  //   const observer = new IntersectionObserver(
+  //     (entries) => {
+  //       if (entries[0].isIntersecting) {
+  //         addMoreItems();
+  //       }
+  //     },
+  //     { threshold: 0.5, rootMargin: '200px' }
+  //   );
+  //
+  //   const target = observerRef.current;
+  //   if (target) observer.observe(target);
+  //
+  //   return () => {
+  //     if (target) observer.unobserve(target);
+  //   };
+  // }, [addMoreItems, renderItem]);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          addMoreItems();
-        }
-      },
-      { threshold: 0.5, rootMargin: '200px' }
-    );
-
-    const target = observerRef.current;
-    if (target) observer.observe(target);
-
-    return () => {
-      if (target) observer.unobserve(target);
-    };
-  }, [addMoreItems, renderItem]);
-
-  if (!items.length) {
-    const resolvedEmpty = typeof emptyState === 'function' ? emptyState() : emptyState;
-    return <div className={s.empty}>{resolvedEmpty ?? 'No items to display'}</div>;
-  }
+  // if (!items.length) {
+  //   const resolvedEmpty = typeof emptyState === 'function' ? emptyState() : emptyState;
+  //   return <div className={s.empty}>{resolvedEmpty ?? 'No items to display'}</div>;
+  // }
 
   return (
     <>

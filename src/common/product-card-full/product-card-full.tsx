@@ -31,7 +31,11 @@ const ProductCardFull: FC<Props> = ({ product, defaultCount, actions, imageProps
       return React.Children.toArray(actions);
     }
     return [<AddToCart key="add-to-cart" count={quantity} onChange={handleQuantityChange} />];
-  }, [quantity, actions]);
+  }, [actions, quantity, handleQuantityChange]);
+
+  if (!product) {
+    return null;
+  }
 
   const { name, desc: description, price, photo: image, category } = product;
 
@@ -39,7 +43,7 @@ const ProductCardFull: FC<Props> = ({ product, defaultCount, actions, imageProps
     <div className={s.card}>
       <img src={image} alt={name} {...imageProps} className={clsx(s.image, imageProps?.className)} />
       <div className={s.content}>
-        <span className={s.category}>{category.name}</span>
+        <span className={s.category}>{category?.name}</span>
         <h2 className={s.name}>{name}</h2>
         <p className={s.description}>{description}</p>
         <div className={s.footer}>

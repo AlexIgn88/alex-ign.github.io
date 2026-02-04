@@ -9,7 +9,7 @@ import { useAppDispatch } from 'src/store/hooks';
 import { saveTokenToStorage } from 'src/features/auth/auth-thunks';
 import { setProfile } from 'src/features/profile/profile-slice';
 import { createFakeProfile } from 'src/features/profile/profile-consts';
-import { ApiError } from 'src/features/auth/auth-consts';
+import { ApiError } from 'src/common/common-consts';
 
 const initialValues: AuthFormValues = {
   email: '',

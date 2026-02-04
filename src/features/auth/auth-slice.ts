@@ -1,14 +1,8 @@
 import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { API, API_BASE_URL } from 'src/common/common-consts';
+import { API, API_BASE_URL, ApiError } from 'src/common/common-consts';
 import { saveTokenToStorage } from 'src/features/auth/auth-thunks';
-import {
-  ApiError,
-  SignInBody,
-  SignInSuccessResponse,
-  SignUpBody,
-  SignupSuccessResponse,
-} from 'src/features/auth/auth-consts';
+import { SignInBody, SignInSuccessResponse, SignUpBody, SignupSuccessResponse } from 'src/features/auth/auth-consts';
 import { setProfile } from 'src/features/profile/profile-slice';
 import { RootState } from 'src/store/store';
 import { useNavigate } from 'react-router-dom';
@@ -127,8 +121,6 @@ export const signin = createAsyncThunk<
   const { token, profile } = result;
 
   dispatch(saveTokenToStorage(token));
-
-  // console.log('auth/signin', profile);
   dispatch(setProfile(profile));
   navigate('/');
 });

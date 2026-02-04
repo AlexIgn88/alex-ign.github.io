@@ -14,12 +14,3 @@ export type SignupSuccessResponse = {
 export type SignInSuccessResponse = SignupSuccessResponse;
 
 export type SignInBody = SignUpBody;
-
-export type ApiError = {
-  name: string;
-  message: string;
-  stack?: string;
-  extensions?: {
-    code?: string;
-  };
-};

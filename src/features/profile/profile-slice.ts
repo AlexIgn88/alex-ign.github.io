@@ -1,9 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { LoadProfileSuccessResponse, Profile, UserProfile } from 'src/features/profile/profile-consts';
-import { ApiError } from 'src/features/auth/auth-consts';
-import { API, API_BASE_URL } from 'src/common/common-consts';
-import { saveTokenToStorage } from 'src/features/auth/auth-thunks';
+import { API, API_BASE_URL, ApiError } from 'src/common/common-consts';
 
 type ProfileState = {
   profile: UserProfile | Profile | null;
@@ -43,8 +41,6 @@ export const loadProfile = createAsyncThunk<LoadProfileSuccessResponse, { token:
     if (result.errors) {
       return rejectWithValue(result.errors as ApiError[]);
     }
-
-    // console.log('profile/loadProfile profile', result);
     dispatch(setProfile(result));
   }
 );

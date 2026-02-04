@@ -1,13 +1,15 @@
 import React, { FC } from 'react';
-import ItemsList from 'src/common/items-list/items-list';
-import { Mode } from 'src/common/items-list/items-list-consts';
+import ItemsList from 'src/features/items/items-list/items-list';
+import { Mode } from 'src/features/items/items-list/items-list-consts';
 import s from './items-screen.module.scss';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import ItemFormModal from 'src/common/item-form-modal/item-form-modal';
+import ItemFormModal from 'src/features/items/item-form-modal/item-form-modal';
 import { AdminActionType } from 'src/features/forms/product-operation-form/product-operation-form-consts';
 import { useAppSelector } from 'src/store/hooks';
 import AdminRoute from 'src/app/admin-route';
+import { selectloadItemsStatus } from 'src/features/items/items-slice';
+import { THUNK_STATUSES } from 'src/store/store-consts';
 
 const ItemsScreen: FC = () => {
   const { t } = useTranslation();
@@ -19,6 +21,10 @@ const ItemsScreen: FC = () => {
   const isProducts = pathname.includes('/products');
   const products = useAppSelector((state) => state.items.products);
   const operations = useAppSelector((state) => state.items.operations);
+
+  const loadItemsStatus = useAppSelector(selectloadItemsStatus);
+  const load = loadItemsStatus === THUNK_STATUSES.PENDING;
+
   const items = isProducts ? products : operations;
   const profile = useAppSelector((state) => state.profile.profile);
   // const isAdmin = profile?.role === 'admin';
@@ -38,25 +44,35 @@ const ItemsScreen: FC = () => {
     ? AdminActionType.EditProduct
     : AdminActionType.EditOperation;
 
-  return (
-    <main>
-      {/*{isAdmin && (*/}
-      {profile && (
-        <div className={s.controlPanel}>
-          <button className={s.controlButton} onClick={() => navigate(`${pathname}?modal=create`)}>
-            {t('screens.items.buttons.create')}
-          </button>
-        </div>
-      )}
+  if (load) {
+    return <div>Загрузка...</div>;
+  }
 
-      {items && <ItemsList data={items} mode={Mode.full} />}
-      {(isCreate || isEdit) && (
-        <AdminRoute>
-          <ItemFormModal mode={itemFormModalMode} itemId={id} onClose={() => setSearchParams({})} />
-        </AdminRoute>
-      )}
-    </main>
-  );
+  // if (!products || !operations) {
+  //   return null;
+  // }
+
+  if (products && operations) {
+    return (
+      <main>
+        {/*{isAdmin && (*/}
+        {profile && (
+          <div className={s.controlPanel}>
+            <button className={s.controlButton} onClick={() => navigate(`${pathname}?modal=create`)}>
+              {t('screens.items.buttons.create')}
+            </button>
+          </div>
+        )}
+
+        {items && <ItemsList data={items} mode={Mode.full} />}
+        {(isCreate || isEdit) && (
+          <AdminRoute>
+            <ItemFormModal mode={itemFormModalMode} itemId={id} onClose={() => setSearchParams({})} />
+          </AdminRoute>
+        )}
+      </main>
+    );
+  }
 };
 
 export default ItemsScreen;

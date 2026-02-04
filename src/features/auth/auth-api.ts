@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { API, API_BASE_URL } from 'src/common/common-consts';
-import { SignUpBody, SignupSuccessResponse, ApiError } from './auth-consts';
+import { API, API_BASE_URL, ApiError } from 'src/common/common-consts';
+import { SignUpBody, SignupSuccessResponse } from './auth-consts';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
