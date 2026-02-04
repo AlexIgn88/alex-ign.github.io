@@ -6,11 +6,16 @@ import { LoadOperationsSuccessResponse, LoadProductsSuccessResponse } from 'src/
 import { API, API_BASE_URL, ApiError } from 'src/common/common-consts';
 import { THUNK_STATUSES, ThunkStatus } from 'src/store/store-consts';
 import { RootState } from 'src/store/store';
+import { PAGE_SIZE } from 'src/common/common-consts';
 
 type ItemsState = {
   loadItemsStatus: ThunkStatus;
   products: Product[];
   operations: Operation[];
+  productsPageNumber: number;
+  productsTotal: number;
+  operationsPageNumber: number;
+  operationsTotal: number;
   error: string | null;
 };
 
@@ -18,6 +23,10 @@ const initialState: ItemsState = {
   loadItemsStatus: THUNK_STATUSES.DEFAULT,
   products: [],
   operations: [],
+  productsPageNumber: 0,
+  productsTotal: 0,
+  operationsPageNumber: 0,
+  operationsTotal: 0,
   error: null,
 };
 
@@ -56,8 +65,14 @@ const itemsSlice = createSlice({
         state.loadItemsStatus = THUNK_STATUSES.PENDING;
       })
       .addCase(loadProducts.fulfilled, (state, { payload }) => {
-        const { data } = payload;
-        state.products = data;
+        const { data, pagination } = payload;
+        if (pagination.pageNumber === 1) {
+          state.products = data;
+        } else {
+          state.products.push(...data);
+        }
+        state.productsPageNumber = pagination.pageNumber;
+        state.productsTotal = pagination.total;
         state.loadItemsStatus = THUNK_STATUSES.FULFILLED;
       })
       .addCase(loadProducts.rejected, (state) => {
@@ -67,8 +82,14 @@ const itemsSlice = createSlice({
         state.loadItemsStatus = THUNK_STATUSES.PENDING;
       })
       .addCase(loadOperations.fulfilled, (state, { payload }) => {
-        const { data } = payload;
-        state.operations = data;
+        const { data, pagination } = payload;
+        if (pagination.pageNumber === 1) {
+          state.operations = data;
+        } else {
+          state.operations.push(...data);
+        }
+        state.operationsPageNumber = pagination.pageNumber;
+        state.operationsTotal = pagination.total;
         state.loadItemsStatus = THUNK_STATUSES.FULFILLED;
       })
       .addCase(loadOperations.rejected, (state) => {
@@ -84,11 +105,28 @@ export default itemsSlice.reducer;
 const selectItemsState = (state: RootState) => state.items;
 
 export const selectloadItemsStatus = (state: RootState) => selectItemsState(state).loadItemsStatus;
+export const selectProductsPagination = (state: RootState) => ({
+  pageNumber: selectItemsState(state).productsPageNumber,
+  total: selectItemsState(state).productsTotal,
+});
+export const selectOperationsPagination = (state: RootState) => ({
+  pageNumber: selectItemsState(state).operationsPageNumber,
+  total: selectItemsState(state).operationsTotal,
+});
 
-export const loadProducts = createAsyncThunk<LoadProductsSuccessResponse, null, { rejectValue: ApiError[] }>(
+type LoadPageArg = { pageNumber: number; pageSize?: number };
+
+
+
+export const loadProducts = createAsyncThunk<
+  LoadProductsSuccessResponse,
+  LoadPageArg,
+  { rejectValue: ApiError[] }
+>(
   'items/loadProducts',
-  async (_, { rejectWithValue }) => {
-    const response = await fetch(`${API_BASE_URL}${API.PRODUCTS}`);
+  async ({ pageNumber, pageSize = PAGE_SIZE }, { rejectWithValue }) => {
+    const url = `${API_BASE_URL}${API.PRODUCTS}?pageNumber=${pageNumber}&pageSize=${pageSize}`;
+    const response = await fetch(url);
     const result = await response.json();
 
     if (result.errors) {
@@ -98,10 +136,15 @@ export const loadProducts = createAsyncThunk<LoadProductsSuccessResponse, null, 
   }
 );
 
-export const loadOperations = createAsyncThunk<LoadOperationsSuccessResponse, null, { rejectValue: ApiError[] }>(
+export const loadOperations = createAsyncThunk<
+  LoadOperationsSuccessResponse,
+  LoadPageArg,
+  { rejectValue: ApiError[] }
+>(
   'items/loadOperations',
-  async (_, { rejectWithValue }) => {
-    const response = await fetch(`${API_BASE_URL}${API.OPERATIONS}`);
+  async ({ pageNumber, pageSize = PAGE_SIZE }, { rejectWithValue }) => {
+    const url = `${API_BASE_URL}${API.OPERATIONS}?pageNumber=${pageNumber}&pageSize=${pageSize}`;
+    const response = await fetch(url);
     const result = await response.json();
 
     if (result.errors) {

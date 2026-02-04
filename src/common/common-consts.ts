@@ -4,7 +4,7 @@ export const API = {
   SIGNUP: '/signup',
   SIGNIN: '/signin',
   PROFILE: '/profile',
-  PRODUCTS: '/products ',
+  PRODUCTS: '/products',
   OPERATIONS: '/operations',
 } as const;
 
@@ -18,3 +18,5 @@ export type ApiError = {
     code?: string;
   };
 };
+
+export const PAGE_SIZE = 10;

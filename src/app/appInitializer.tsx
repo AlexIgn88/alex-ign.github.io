@@ -10,20 +10,17 @@ type Props = {
 
 const AppInitializer: React.FC<Props> = ({ children }) => {
   const dispatch = useAppDispatch();
-  const productsInitialized = useAppSelector((state) => state.items.products.length > 0);
+  const productsPageLoaded = useAppSelector((state) => state.items.productsPageNumber > 0);
+  const operationsPageLoaded = useAppSelector((state) => state.items.operationsPageNumber > 0);
 
   useEffect(() => {
     dispatch(loadTokenFromStorage());
   }, [dispatch]);
 
   useEffect(() => {
-    if (!productsInitialized) {
-      // dispatch(setProducts(products));
-      // dispatch(setOperations(operations));
-      dispatch(loadProducts());
-      dispatch(loadOperations());
-    }
-  }, [dispatch, productsInitialized]);
+    if (!productsPageLoaded) dispatch(loadProducts({ pageNumber: 1 }));
+    if (!operationsPageLoaded) dispatch(loadOperations({ pageNumber: 1 }));
+  }, [dispatch, productsPageLoaded, operationsPageLoaded]);
 
   return <>{children}</>;
 };
