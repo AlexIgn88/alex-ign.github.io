@@ -16,7 +16,7 @@ type Props = {
 
 const ProductCardPreview: FC<Props> = ({ product, defaultCount = 0, actions, imageProps }) => {
   const dispatch = useAppDispatch();
-  const cartItem = useAppSelector((state) => state.cart.items.find((item) => item.product.id === product.id));
+  const cartItem = useAppSelector((state) => state.cart.items.find((item) => item.product?.id === product?.id));
   const quantity = cartItem?.quantity ?? defaultCount;
 
   const handleQuantityChange = (newQuantity: number) => {
@@ -27,9 +27,9 @@ const ProductCardPreview: FC<Props> = ({ product, defaultCount = 0, actions, ima
     }
   };
 
-  const handleAddToCart = () => {
-    dispatch(addToCart(product));
-  };
+  // const handleAddToCart = () => {
+  //   dispatch(addToCart(product));
+  // };
 
   const mergedActions = useMemo(() => {
     if (actions) {
@@ -37,9 +37,9 @@ const ProductCardPreview: FC<Props> = ({ product, defaultCount = 0, actions, ima
     }
     return [
       <AddToCart key="add-to-cart" count={quantity} onChange={handleQuantityChange} />,
-      <DeleteProduct key="delete-product" productId={product.id} />,
+      <DeleteProduct key="delete-product" productId={product?.id} />,
     ];
-  }, [quantity, actions, product.id]);
+  }, [actions, quantity, handleQuantityChange, product?.id]);
 
   const { name, desc: description, price, photo: image } = product;
 

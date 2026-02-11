@@ -3,7 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 import { Product, Operation } from 'src/homeworks/ts1/3_write';
 import { LoadOperationsSuccessResponse, LoadProductsSuccessResponse } from 'src/features/items/items-consts';
-import { API, API_BASE_URL, ApiError } from 'src/common/common-consts';
+import { API, API_BASE_URL, ApiError, LoadPageArg } from 'src/common/common-consts';
 import { THUNK_STATUSES, ThunkStatus } from 'src/store/store-consts';
 import { RootState } from 'src/store/store';
 import { PAGE_SIZE } from 'src/common/common-consts';
@@ -114,15 +114,7 @@ export const selectOperationsPagination = (state: RootState) => ({
   total: selectItemsState(state).operationsTotal,
 });
 
-type LoadPageArg = { pageNumber: number; pageSize?: number };
-
-
-
-export const loadProducts = createAsyncThunk<
-  LoadProductsSuccessResponse,
-  LoadPageArg,
-  { rejectValue: ApiError[] }
->(
+export const loadProducts = createAsyncThunk<LoadProductsSuccessResponse, LoadPageArg, { rejectValue: ApiError[] }>(
   'items/loadProducts',
   async ({ pageNumber, pageSize = PAGE_SIZE }, { rejectWithValue }) => {
     const url = `${API_BASE_URL}${API.PRODUCTS}?pageNumber=${pageNumber}&pageSize=${pageSize}`;
@@ -136,11 +128,7 @@ export const loadProducts = createAsyncThunk<
   }
 );
 
-export const loadOperations = createAsyncThunk<
-  LoadOperationsSuccessResponse,
-  LoadPageArg,
-  { rejectValue: ApiError[] }
->(
+export const loadOperations = createAsyncThunk<LoadOperationsSuccessResponse, LoadPageArg, { rejectValue: ApiError[] }>(
   'items/loadOperations',
   async ({ pageNumber, pageSize = PAGE_SIZE }, { rejectWithValue }) => {
     const url = `${API_BASE_URL}${API.OPERATIONS}?pageNumber=${pageNumber}&pageSize=${pageSize}`;

@@ -6,9 +6,23 @@ export const API = {
   PROFILE: '/profile',
   PRODUCTS: '/products',
   OPERATIONS: '/operations',
+  ORDERS: '/orders',
 } as const;
 
 export const LOCAL_STORAGE_KEYS = { TOKEN_STORAGE_KEY: 'auth_token' } as const;
+
+export type LoadItemsSuccessResponse<T> = {
+  data: T[];
+  pagination: {
+    pageSize: number;
+    pageNumber: number;
+    total: number;
+  };
+  sorting: {
+    type: 'ASC' | 'DESC';
+    field: 'id' | 'createdAt' | 'updatedAt' | 'name';
+  };
+};
 
 export type ApiError = {
   name: string;
@@ -18,5 +32,7 @@ export type ApiError = {
     code?: string;
   };
 };
+
+export type LoadPageArg = { pageNumber: number; pageSize?: number };
 
 export const PAGE_SIZE = 10;

@@ -120,7 +120,8 @@ const ItemsList: FC<Props> = ({ data, mode, renderItem, emptyState, listProps, o
       <div {...mergedListProps}>
         {items.map((item, index) => {
           const element = resolvedRenderer(item, index);
-          const key = 'id' in item ? item.id : `${index}`;
+          // const key = 'id' in item ? item.id : `${index}`;
+          const key = `${index}`;
 
           return <React.Fragment key={key}>{element}</React.Fragment>;
         })}

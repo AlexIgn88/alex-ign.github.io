@@ -1,7 +1,8 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { LoadProfileSuccessResponse, Profile, UserProfile } from 'src/features/profile/profile-consts';
 import { API, API_BASE_URL, ApiError } from 'src/common/common-consts';
+import { RootState } from 'src/store/store';
 
 type ProfileState = {
   profile: UserProfile | Profile | null;
@@ -26,6 +27,12 @@ const profileSlice = createSlice({
 
 export const { setProfile, clearProfile } = profileSlice.actions;
 export default profileSlice.reducer;
+
+const selectProfileState = (state: RootState) => state.profile;
+
+export const selectUserProfile = createSelector([selectProfileState], (profileState) => profileState.profile);
+
+export const selectUserId = createSelector([selectUserProfile], (userProfile) => (userProfile ? userProfile.id : null));
 
 export const loadProfile = createAsyncThunk<LoadProfileSuccessResponse, { token: string }, { rejectValue: ApiError[] }>(
   'profile/loadProfile',

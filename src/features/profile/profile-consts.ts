@@ -9,7 +9,7 @@ export type Profile = {
 
 //настоящий профиль, который приходит с сервера
 export type UserProfile = {
-  _id: string;
+  id: string;
   signUpDate: string;
   email: string;
   password: string;
