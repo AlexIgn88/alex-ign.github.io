@@ -4,3 +4,6 @@ import { LoadItemsSuccessResponse } from 'src/common/common-consts';
 export type LoadProductsSuccessResponse = LoadItemsSuccessResponse<Product>;
 
 export type LoadOperationsSuccessResponse = LoadItemsSuccessResponse<Operation>;
+
+export type NewProduct = Omit<Product, 'id' | 'category'> & { categoryId: string };
+export type NewOperation = Omit<Operation, 'id' | 'createdAt' | 'category'> & { categoryId: string; date: string };

@@ -14,7 +14,10 @@ const ModalWindow: FC<Props> = ({ visible, setVisible, children, className }) =>
   if (!visible) return null;
 
   const modalContent = (
-    <div className={s.mask} onClick={() => setVisible(false)}>
+    <div
+      className={s.mask}
+      // onClick={() => setVisible(false)}
+    >
       <div className={clsx(s.window, className)} onClick={(e) => e.stopPropagation()}>
         <div className={s.panel}>
           <button onClick={() => setVisible(false)}>&#10006;</button>

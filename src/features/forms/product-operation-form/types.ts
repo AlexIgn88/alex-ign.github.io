@@ -12,7 +12,7 @@ export type ProductOperationFormValues = {
   amount?: number;
   type?: 'Cost' | 'Profit';
   categoryId: string;
-  categoryName: string;
+  // categoryName?: string;
 };
 
 export type ProductOperationFormErrors = Record<string, string>;
@@ -22,4 +22,3 @@ export type ProductOperationFormProps = FormProps<ProductOperationFormValues> & 
   mode: FormMode;
   initialData?: Product | Operation;
 };
-

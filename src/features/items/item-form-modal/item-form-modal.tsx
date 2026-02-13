@@ -8,9 +8,27 @@ import {
   FormikContext,
 } from 'src/features/forms/product-operation-form/product-operation-form-consts';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
-import { addProduct, updateProduct, addOperation, updateOperation } from 'src/features/items/items-slice';
-import { Product, Operation, createRandomProduct, createRandomOperation } from 'src/homeworks/ts1/3_write';
+import {
+  // updateProduct,
+  // addOperation,
+  // updateOperation,
+  selectProducts,
+  selectOperations,
+  addNewProduct,
+  addNewOperation,
+} from 'src/features/items/items-slice';
+import {
+  Product,
+  Operation,
+  // createRandomProduct, createRandomOperation
+} from 'src/homeworks/ts1/3_write';
 import { useLocation } from 'react-router-dom';
+import { NewOperation, NewProduct } from 'src/features/items/items-consts';
+import {
+  // FormValues,
+  OperationFormValues,
+  ProductFormValues,
+} from 'src/features/items/item-form-modal/item-form-modal-consts';
 
 type Props = {
   mode: AdminActionType;
@@ -24,8 +42,8 @@ const ItemFormModal: FC<Props> = ({ mode, itemId, onClose }) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const isProducts = location.pathname.includes('/products');
-  const products = useAppSelector((state) => state.items.products);
-  const operations = useAppSelector((state) => state.items.operations);
+  const products = useAppSelector(selectProducts);
+  const operations = useAppSelector(selectOperations);
 
   const existingItem = useMemo(() => {
     if (!itemId) return null;
@@ -70,47 +88,55 @@ const ItemFormModal: FC<Props> = ({ mode, itemId, onClose }) => {
     };
   }, []);
 
-  const handleSubmit = (values: any) => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const handleSubmit = (values) => {
     const createdAt = existingItem ? existingItem.createdAt : new Date().toISOString();
 
     if (isProducts) {
-      const product: Product = {
-        id: existingItem?.id || Date.now().toString(),
-        name: values.name,
-        photo: values.photo || '',
-        desc: values.desc,
-        price: values.price || 0,
-        oldPrice: values.oldPrice,
+      const v = values as ProductFormValues;
+
+      const product: NewProduct = {
+        name: v.name,
+        photo: v.photo || '',
+        desc: v.desc,
+        price: v.price || 0,
+        oldPrice: v.oldPrice,
         createdAt,
-        category: {
-          id: values.categoryId,
-          name: values.categoryName,
-        },
+        categoryId: v.categoryId,
+        // category: {
+        //   id: values.categoryId,
+        //   name: values.categoryName,
+        // },
       };
 
       if (existingItem) {
-        dispatch(updateProduct(product));
+        // dispatch(updateProduct(product));
+        onClose();
       } else {
-        dispatch(addProduct(product));
+        dispatch(addNewProduct(product));
       }
     } else {
-      const operation: Operation = {
-        id: existingItem?.id || Date.now().toString(),
-        name: values.name,
-        desc: values.desc,
-        amount: values.amount || 0,
-        type: values.type || 'Cost',
-        createdAt,
-        category: {
-          id: values.categoryId,
-          name: values.categoryName,
-        },
-      } as Operation;
+      const v = values as OperationFormValues;
+
+      const operation: NewOperation = {
+        name: v.name,
+        desc: v.desc,
+        amount: v.amount || 0,
+        type: (v.type as 'Cost' | 'Profit') || 'Cost',
+        date: new Date().toISOString(),
+        categoryId: values.categoryId,
+        // category: {
+        //   id: values.categoryId,
+        //   name: values.categoryName,
+        // },
+      };
 
       if (existingItem) {
-        dispatch(updateOperation(operation));
+        // dispatch(updateOperation(operation));
+        onClose();
       } else {
-        dispatch(addOperation(operation));
+        dispatch(addNewOperation(operation));
       }
     }
 

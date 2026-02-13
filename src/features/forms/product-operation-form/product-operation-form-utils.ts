@@ -16,7 +16,7 @@ export const createProductInitialValues = (): ProductOperationFormValues => ({
   price: 0,
   oldPrice: undefined,
   categoryId: '',
-  categoryName: '',
+  // categoryName: '',
 });
 
 export const createOperationInitialValues = (): ProductOperationFormValues => ({
@@ -25,7 +25,7 @@ export const createOperationInitialValues = (): ProductOperationFormValues => ({
   amount: 0,
   type: 'Cost',
   categoryId: '',
-  categoryName: '',
+  // categoryName: '',
 });
 
 export const createValidate =
@@ -73,11 +73,11 @@ export const createValidate =
       errors.categoryId = 'Category ID must be at least 2 characters';
     }
 
-    if (!values.categoryName) {
-      errors.categoryName = 'Category Name is required';
-    } else if (values.categoryName.trim().length < 2) {
-      errors.categoryName = 'Category Name must be at least 2 characters';
-    }
+    // if (!values.categoryName) {
+    //   errors.categoryName = 'Category Name is required';
+    // } else if (values.categoryName.trim().length < 2) {
+    //   errors.categoryName = 'Category Name must be at least 2 characters';
+    // }
 
     return errors;
   };
