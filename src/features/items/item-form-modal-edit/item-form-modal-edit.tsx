@@ -9,26 +9,20 @@ import {
 } from 'src/features/forms/product-operation-form/product-operation-form-consts';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import {
-  // updateProduct,
-  // addOperation,
-  // updateOperation,
   selectProducts,
   selectOperations,
-  addNewProduct,
   addNewOperation,
+  editProduct,
+  editOperation,
 } from 'src/features/items/items-slice';
-import {
-  Product,
-  Operation,
-  // createRandomProduct, createRandomOperation
-} from 'src/homeworks/ts1/3_write';
+import { Product, Operation } from 'src/homeworks/ts1/3_write';
 import { useLocation } from 'react-router-dom';
 import { NewOperation, NewProduct } from 'src/features/items/items-consts';
 import {
   // FormValues,
   OperationFormValues,
   ProductFormValues,
-} from 'src/features/items/item-form-modal/item-form-modal-consts';
+} from 'src/features/items/item-form-modal-create/item-form-modal-consts';
 
 type Props = {
   mode: AdminActionType;
@@ -36,7 +30,7 @@ type Props = {
   onClose: () => void;
 };
 
-const ItemFormModal: FC<Props> = ({ mode, itemId, onClose }) => {
+const ItemFormModalEdit: FC<Props> = ({ mode, itemId, onClose }) => {
   const formElementRef = useRef<HTMLFormElement>(null);
   const autoFocusElementRef = useRef(null);
   const dispatch = useAppDispatch();
@@ -58,6 +52,7 @@ const ItemFormModal: FC<Props> = ({ mode, itemId, onClose }) => {
       if (isProducts) {
         const product = existingItem as Product;
         return {
+          id: product.id,
           name: product.name,
           photo: product.photo,
           desc: product.desc || '',
@@ -69,6 +64,7 @@ const ItemFormModal: FC<Props> = ({ mode, itemId, onClose }) => {
       } else {
         const operation = existingItem as Operation;
         return {
+          id: operation.id,
           name: operation.name,
           desc: operation.desc || '',
           amount: operation.amount,
@@ -91,30 +87,23 @@ const ItemFormModal: FC<Props> = ({ mode, itemId, onClose }) => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const handleSubmit = (values) => {
-    const createdAt = existingItem ? existingItem.createdAt : new Date().toISOString();
-
     if (isProducts) {
       const v = values as ProductFormValues;
 
-      const product: NewProduct = {
+      const product: Omit<NewProduct, 'createdAt'> = {
         name: v.name,
         photo: v.photo || '',
         desc: v.desc,
         price: v.price || 0,
         oldPrice: v.oldPrice,
-        createdAt,
         categoryId: v.categoryId,
-        // category: {
-        //   id: values.categoryId,
-        //   name: values.categoryName,
-        // },
       };
 
       if (existingItem) {
-        // dispatch(updateProduct(product));
-        onClose();
+        dispatch(editProduct({ id: existingItem.id, data: product }));
       } else {
-        dispatch(addNewProduct(product));
+        // dispatch(addNewProduct(product));
+        onClose();
       }
     } else {
       const v = values as OperationFormValues;
@@ -126,17 +115,12 @@ const ItemFormModal: FC<Props> = ({ mode, itemId, onClose }) => {
         type: (v.type as 'Cost' | 'Profit') || 'Cost',
         date: new Date().toISOString(),
         categoryId: values.categoryId,
-        // category: {
-        //   id: values.categoryId,
-        //   name: values.categoryName,
-        // },
       };
 
       if (existingItem) {
-        // dispatch(updateOperation(operation));
-        onClose();
+        dispatch(editOperation({ id: existingItem.id, data: operation }));
       } else {
-        dispatch(addNewOperation(operation));
+        onClose();
       }
     }
 
@@ -166,4 +150,4 @@ const ItemFormModal: FC<Props> = ({ mode, itemId, onClose }) => {
   );
 };
 
-export default ItemFormModal;
+export default ItemFormModalEdit;

@@ -204,3 +204,53 @@ export const addNewOperation = createAsyncThunk<Operation, NewOperation, { rejec
     dispatch(addOperation(result));
   }
 );
+
+export const editProduct = createAsyncThunk<
+  Product,
+  { id: string; data: Omit<NewProduct, 'createdAt'> },
+  { rejectValue: ApiError[] }
+>('items/editProduct', async ({ id, data }, { dispatch, rejectWithValue }) => {
+  const token = localStorage.getItem(LOCAL_STORAGE_KEYS.TOKEN_STORAGE_KEY);
+
+  const response = await fetch(`${API_BASE_URL}${API.PRODUCTS}/${id}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+
+  const result = await response.json();
+
+  if (result.errors) {
+    return rejectWithValue(result.errors as ApiError[]);
+  }
+
+  dispatch(updateProduct(result));
+});
+
+export const editOperation = createAsyncThunk<
+  Operation,
+  { id: string; data: NewOperation },
+  { rejectValue: ApiError[] }
+>('items/editOperation', async ({ id, data }, { dispatch, rejectWithValue }) => {
+  const token = localStorage.getItem(LOCAL_STORAGE_KEYS.TOKEN_STORAGE_KEY);
+
+  const response = await fetch(`${API_BASE_URL}${API.OPERATIONS}/${id}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+
+  const result = await response.json();
+
+  if (result.errors) {
+    return rejectWithValue(result.errors as ApiError[]);
+  }
+
+  dispatch(updateOperation(result));
+});
