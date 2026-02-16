@@ -86,10 +86,14 @@ const ItemsScreen: FC = () => {
         )}
 
         {items && <ItemsList data={items} mode={Mode.full} onLoadMore={onLoadMore} />}
-        <AdminRoute>
-          {isCreate && <ItemFormModalCreate mode={itemFormModalMode} itemId={id} onClose={() => setSearchParams({})} />}
-          {isEdit && <ItemFormModalEdit mode={itemFormModalMode} itemId={id} onClose={() => setSearchParams({})} />}
-        </AdminRoute>
+        {(isCreate || isEdit) && (
+          <AdminRoute>
+            {isCreate && (
+              <ItemFormModalCreate mode={itemFormModalMode} itemId={id} onClose={() => setSearchParams({})} />
+            )}
+            {isEdit && <ItemFormModalEdit mode={itemFormModalMode} itemId={id} onClose={() => setSearchParams({})} />}
+          </AdminRoute>
+        )}
       </main>
     );
   }
