@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import s from './operation-card-full.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { Operation } from 'src/homeworks/ts1/3_write';
+import { parseIsoDate } from 'src/common/common-utils';
 
 type Props = {
   operation: Operation;
@@ -21,7 +22,7 @@ const OperationCardFull: FC<Props> = ({ operation }) => {
       <div className={s.categoryName}>{category?.name}</div>
       <div className={s.name}>{name}</div>
       <div className={s.sum}>${amount}</div>
-      <div className={s.date}>{date}</div>
+      <div className={s.date}>{parseIsoDate(date)}</div>
       <div className={s.description}>{description}</div>
       <button onClick={() => navigate(`/operations?modal=edit&id=${id}`)}>Edit</button>
     </div>
