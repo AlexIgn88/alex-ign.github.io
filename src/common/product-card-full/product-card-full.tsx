@@ -5,6 +5,7 @@ import AddToCart from '../add-to-cart/add-to-cart';
 import { useAppSelector, useAppDispatch } from 'src/store/hooks';
 import { addToCart, updateQuantity } from 'src/features/cart/cart-slice';
 import { Product } from 'src/homeworks/ts1/3_write';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   product: Product;
@@ -15,6 +16,7 @@ type Props = {
 
 const ProductCardFull: FC<Props> = ({ product, defaultCount, actions, imageProps }) => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const cartItem = useAppSelector((state) => state.cart.items.find((item) => item.product.id === product.id));
   const quantity = cartItem?.quantity ?? defaultCount ?? 0;
 
@@ -31,20 +33,25 @@ const ProductCardFull: FC<Props> = ({ product, defaultCount, actions, imageProps
       return React.Children.toArray(actions);
     }
     return [<AddToCart key="add-to-cart" count={quantity} onChange={handleQuantityChange} />];
-  }, [quantity, actions]);
+  }, [actions, quantity, handleQuantityChange]);
 
-  const { name, desc: description, price, photo: image, category } = product;
+  if (!product) {
+    return null;
+  }
+
+  const { id, name, desc: description, price, photo: image, category } = product;
 
   return (
     <div className={s.card}>
       <img src={image} alt={name} {...imageProps} className={clsx(s.image, imageProps?.className)} />
       <div className={s.content}>
-        <span className={s.category}>{category.name}</span>
+        <span className={s.category}>{category?.name}</span>
         <h2 className={s.name}>{name}</h2>
         <p className={s.description}>{description}</p>
         <div className={s.footer}>
           <span className={s.price}>${price}</span>
           <div className={s.actions}>{mergedActions}</div>
+          <button onClick={() => navigate(`/products?modal=edit&id=${id}`)}>Edit</button>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-//TODO моковый профиль
+//моковый профиль для предыдущего задания
 export type Profile = {
   id: string;
   name: string;
@@ -7,14 +7,22 @@ export type Profile = {
   role: 'admin' | 'user';
 };
 
+//настоящий профиль, который приходит с сервера
 export type UserProfile = {
-  _id: string;
+  id: string;
   signUpDate: string;
   email: string;
   password: string;
   __v: number;
 };
 
+export type LoadProfileSuccessResponse = {
+  id: string;
+  email: string;
+  signUpDate: string;
+};
+
+//моковый профиль для предыдущего задания
 export const createFakeProfile = (
   token: string,
   profileData: { email: string; password: string } = { email: 'john.doe@example.com', password: '111' }

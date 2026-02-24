@@ -31,7 +31,7 @@ const Header = () => {
       <div className={s.right}>
         {token && profile && (
           <div className={s.user}>
-            <span className={s.userName}>{profile.name}</span>
+            <span className={s.userName}>{profile.email}</span>
             <button onClick={handleLogout} className={s.logoutButton}>
               {t('header.logout')}
             </button>

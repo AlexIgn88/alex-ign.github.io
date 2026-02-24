@@ -1,13 +1,12 @@
 import React, { FC, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
-import { Operation, Product, createRandomOperation, createRandomProduct } from 'src/homeworks/ts1/3_write';
+import { Operation, Product } from 'src/homeworks/ts1/3_write';
 import s from './items-list.module.scss';
-import ProductCardPreview from '../product-card-preview/product-card-preview';
-import ProductCardFull from '../product-card-full/product-card-full';
-import OperationCardPreview from '../operation-card-preview/operation-card-preview';
-import OperationCardFull from '../operation-card-full/operation-card-full';
+import ProductCardPreview from '../../../common/product-card-preview/product-card-preview';
+import ProductCardFull from '../../../common/product-card-full/product-card-full';
+import OperationCardPreview from '../../../common/operation-card-preview/operation-card-preview';
+import OperationCardFull from '../../../common/operation-card-full/operation-card-full';
 import { Mode } from './items-list-consts';
-import { isProductArray, isOperationArray } from './items-list-utils';
 
 type RenderItem = (params: { item: Product | Operation; index: number; mode: Mode }) => ReactNode;
 
@@ -17,6 +16,7 @@ type Props = {
   renderItem?: RenderItem;
   emptyState?: ReactNode | (() => ReactNode);
   listProps?: React.HTMLAttributes<HTMLDivElement>;
+  onLoadMore?: () => void;
 };
 
 const isProductItem = (item: Product | Operation): item is Product => 'price' in item;
@@ -38,12 +38,10 @@ const toOperationPreviewProps = (operation: Operation) => ({
 });
 
 const toOperationFullProps = (operation: Operation) => ({
-  ...toOperationPreviewProps(operation),
-  date: operation.createdAt,
-  id: operation.id,
+  operation,
 });
 
-const ItemsList: FC<Props> = ({ data, mode, renderItem, emptyState, listProps }) => {
+const ItemsList: FC<Props> = ({ data, mode, renderItem, emptyState, listProps, onLoadMore }) => {
   const [items, setItems] = useState<(Product | Operation)[]>(data);
   const observerRef = useRef<HTMLDivElement | null>(null);
 
@@ -94,34 +92,12 @@ const ItemsList: FC<Props> = ({ data, mode, renderItem, emptyState, listProps })
     [defaultRenderer, mode, renderItem]
   );
 
-  const addMoreItems = useCallback(() => {
-    setItems((prev) => {
-      const createdAt = new Date().toISOString();
-
-      if (isProductArray(prev)) {
-        const newItems = Array.from({ length: 10 }, () => createRandomProduct(createdAt));
-        return [...prev, ...newItems];
-      }
-
-      if (isOperationArray(prev)) {
-        const newItems = Array.from({ length: 10 }, () => createRandomOperation(createdAt));
-        return [...prev, ...newItems];
-      }
-
-      return prev;
-    });
-  }, []);
-
   useEffect(() => {
-    if (renderItem) {
-      return;
-    }
+    if (!onLoadMore || renderItem) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) {
-          addMoreItems();
-        }
+        if (entries[0].isIntersecting) onLoadMore();
       },
       { threshold: 0.5, rootMargin: '200px' }
     );
@@ -132,24 +108,25 @@ const ItemsList: FC<Props> = ({ data, mode, renderItem, emptyState, listProps })
     return () => {
       if (target) observer.unobserve(target);
     };
-  }, [addMoreItems, renderItem]);
+  }, [onLoadMore, renderItem]);
 
-  if (!items.length) {
-    const resolvedEmpty = typeof emptyState === 'function' ? emptyState() : emptyState;
-    return <div className={s.empty}>{resolvedEmpty ?? 'No items to display'}</div>;
-  }
+  // if (!items.length) {
+  //   const resolvedEmpty = typeof emptyState === 'function' ? emptyState() : emptyState;
+  //   return <div className={s.empty}>{resolvedEmpty ?? 'No items to display'}</div>;
+  // }
 
   return (
     <>
       <div {...mergedListProps}>
         {items.map((item, index) => {
           const element = resolvedRenderer(item, index);
-          const key = 'id' in item ? item.id : `${index}`;
+          // const key = 'id' in item ? item.id : `${index}`;
+          const key = `${index}`;
 
           return <React.Fragment key={key}>{element}</React.Fragment>;
         })}
       </div>
-      <div ref={observerRef} className={s.observer} aria-hidden />
+      {onLoadMore && <div ref={observerRef} className={s.observer} aria-hidden />}
     </>
   );
 };

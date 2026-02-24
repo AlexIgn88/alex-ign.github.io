@@ -11,11 +11,6 @@ export type SignupSuccessResponse = {
   profile: UserProfile;
 };
 
-export type ApiError = {
-  name: string;
-  message: string;
-  stack?: string;
-  extensions?: {
-    code?: string;
-  };
-};
+export type SignInSuccessResponse = SignupSuccessResponse;
+
+export type SignInBody = SignUpBody;

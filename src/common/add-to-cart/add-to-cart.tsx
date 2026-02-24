@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useMemo } from 'react';
+import React, { FC, ReactNode } from 'react';
 import clsx from 'clsx';
 import s from './add-to-cart.module.scss';
 import { useTranslation } from 'react-i18next';
@@ -35,7 +35,7 @@ const AddToCart: FC<Props> = ({
   inputProps,
   children,
 }) => {
-  const { t } = useTranslation(); 
+  const { t } = useTranslation();
   const canIncrement = count < max;
   const canDecrement = count > min;
 

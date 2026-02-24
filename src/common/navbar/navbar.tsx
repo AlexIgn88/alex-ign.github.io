@@ -5,7 +5,6 @@ import styles from './navbar.module.scss';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from 'src/store/hooks';
 
-
 const Navbar: FC = () => {
   const { t } = useTranslation();
   const token = useAppSelector((state) => state.auth.token);
@@ -16,9 +15,14 @@ const Navbar: FC = () => {
       <NavLink to="/" className={({ isActive }) => (isActive ? `${styles.link} ${styles.active}` : styles.link)}>
         {t('navbar.main')}
       </NavLink>
-      {token && profile && (<NavLink to="/profile" className={({ isActive }) => (isActive ? `${styles.link} ${styles.active}` : styles.link)}>
-        {t('navbar.profile')}
-      </NavLink>)}
+      {token && profile && (
+        <NavLink
+          to="/profile"
+          className={({ isActive }) => (isActive ? `${styles.link} ${styles.active}` : styles.link)}
+        >
+          {t('navbar.profile')}
+        </NavLink>
+      )}
       <NavLink
         to="/products"
         className={({ isActive }) => (isActive ? `${styles.link} ${styles.active}` : styles.link)}
@@ -31,9 +35,11 @@ const Navbar: FC = () => {
       >
         {t('navbar.operations')}
       </NavLink>
-      <NavLink to="/cart" className={({ isActive }) => (isActive ? `${styles.link} ${styles.active}` : styles.link)}>
-        {t('navbar.cart')}
-      </NavLink>
+      {token && profile && (
+        <NavLink to="/cart" className={({ isActive }) => (isActive ? `${styles.link} ${styles.active}` : styles.link)}>
+          {t('navbar.cart')}
+        </NavLink>
+      )}
     </nav>
   );
 };

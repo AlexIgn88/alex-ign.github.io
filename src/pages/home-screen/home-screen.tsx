@@ -17,7 +17,7 @@ const HomeScreen: FC = () => {
       <main>
         <img src={logo} className="App-logo" alt="logo" />
         <div>
-          <p className={s.welcomeText}>{t('screens.home.welcomeText', { name: profile.name, role: profile.role })}</p>
+          <p className={s.welcomeText}>{t('screens.home.welcomeText', { name: profile.email })}</p>
           <p>{t('screens.home.intro')}</p>
         </div>
       </main>
@@ -28,20 +28,23 @@ const HomeScreen: FC = () => {
     <main>
       <img src={logo} className="App-logo" alt="logo" />
       <ul className={s.links}>
+        {/*<li>*/}
+        {/*  <Link to={APP_ROUTES.SIGNUP_FUNCTIONAL_COMPONENT_SCREEN}>Signup with functional component</Link>*/}
+        {/*</li>*/}
+        <li>
+          <Link to={APP_ROUTES.SIGNUP_REDUX_THUNK_SCREEN}>
+            Signup
+            {/*with Redux Thunk*/}
+          </Link>
+        </li>
+        {/*<li>*/}
+        {/*  <Link to={APP_ROUTES.SIGNUP_REDUX_SAGA_SCREEN}>Signup with Redux Saga</Link>*/}
+        {/*</li>*/}
+        {/*<li>*/}
+        {/*  <Link to={APP_ROUTES.SIGNUP_REDUX_TOOLKIT_QUERY_SCREEN}>Signup with Redux Toolkit Query</Link>*/}
+        {/*</li>*/}
         <li>
           <Link to={APP_ROUTES.LOGIN}>Login</Link>
-        </li>
-        <li>
-          <Link to={APP_ROUTES.SIGNUP_FUNCTIONAL_COMPONENT_SCREEN}>Signup with functional component</Link>
-        </li>
-        <li>
-          <Link to={APP_ROUTES.SIGNUP_REDUX_THUNK_SCREEN}>Signup with Redux Thunk</Link>
-        </li>
-        <li>
-          <Link to={APP_ROUTES.SIGNUP_REDUX_SAGA_SCREEN}>Signup with Redux Saga</Link>
-        </li>
-        <li>
-          <Link to={APP_ROUTES.SIGNUP_REDUX_TOOLKIT_QUERY_SCREEN}>Signup with Redux Toolkit Query</Link>
         </li>
       </ul>
     </main>

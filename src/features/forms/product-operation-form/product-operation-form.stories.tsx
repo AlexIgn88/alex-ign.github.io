@@ -48,7 +48,7 @@ const createProductInitialValuesWithData = (product: {
   price: product.price,
   oldPrice: product.oldPrice,
   categoryId: product.category.id,
-  categoryName: product.category.name,
+  // categoryName: product.category.name,
 });
 
 const createOperationInitialValuesWithData = (operation: {
@@ -63,7 +63,7 @@ const createOperationInitialValuesWithData = (operation: {
   amount: operation.amount,
   type: operation.type,
   categoryId: operation.category.id,
-  categoryName: operation.category.name,
+  // categoryName: operation.category.name,
 });
 
 const RenderForm = (mode: FormMode, initialValues: ProductOperationFormValues) => {

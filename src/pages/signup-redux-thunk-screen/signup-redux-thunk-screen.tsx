@@ -2,16 +2,11 @@ import React, { FC, useRef } from 'react';
 import s from 'src/pages/signup-redux-thunk-screen/signup-redux-thunk-screen.module.scss';
 import { Formik } from 'formik';
 import AuthForm from 'src/features/forms/auth-form/auth-form';
-import { AuthFormValues } from 'src/features/forms/auth-form/types';
 // import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import { useNavigate } from 'react-router-dom';
 import { selectAuthErrorMessages, signup } from 'src/features/auth/auth-slice';
-
-const initialValues: AuthFormValues = {
-  email: '',
-  password: '',
-};
+import { authFormValidate, initialAuthFormValues } from 'src/features/forms/forms-consts';
 
 const SignupReduxThunkScreen: FC = () => {
   // const { t } = useTranslation();
@@ -28,7 +23,8 @@ const SignupReduxThunkScreen: FC = () => {
         <div className={s.welcomeTextContainer}>
           <h2>Signup with Redux Thunk</h2>
           <Formik
-            initialValues={initialValues}
+            initialValues={initialAuthFormValues}
+            validate={authFormValidate}
             onSubmit={(formData) => {
               dispatch(signup({ data: formData, navigate }));
             }}

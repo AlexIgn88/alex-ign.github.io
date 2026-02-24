@@ -1,25 +1,28 @@
 import React, { FC } from 'react';
 import s from './operation-card-full.module.scss';
 import { useNavigate } from 'react-router-dom';
+import { Operation } from 'src/homeworks/ts1/3_write';
+import { parseIsoDate } from 'src/common/common-utils';
 
 type Props = {
-  id: string;
-  sum: number;
-  categoryName: string;
-  name: string;
-  description: string;
-  date: string;
+  operation: Operation;
 };
 
-const OperationCardFull: FC<Props> = ({ id, sum, categoryName, name, date, description }) => {
+const OperationCardFull: FC<Props> = ({ operation }) => {
   const navigate = useNavigate();
+
+  if (!operation) {
+    return null;
+  }
+
+  const { id, name, desc: description, createdAt: date, amount, category } = operation;
 
   return (
     <div className={s.card}>
-      <div className={s.categoryName}>{categoryName}</div>
+      <div className={s.categoryName}>{category?.name}</div>
       <div className={s.name}>{name}</div>
-      <div className={s.sum}>${sum}</div>
-      <div className={s.date}>{date}</div>
+      <div className={s.sum}>${amount}</div>
+      <div className={s.date}>{parseIsoDate(date)}</div>
       <div className={s.description}>{description}</div>
       <button onClick={() => navigate(`/operations?modal=edit&id=${id}`)}>Edit</button>
     </div>

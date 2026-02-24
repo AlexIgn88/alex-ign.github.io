@@ -8,9 +8,21 @@ import {
   FormikContext,
 } from 'src/features/forms/product-operation-form/product-operation-form-consts';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
-import { addProduct, updateProduct, addOperation, updateOperation } from 'src/features/items/items-slice';
-import { Product, Operation, createRandomProduct, createRandomOperation } from 'src/homeworks/ts1/3_write';
+import {
+  selectProducts,
+  selectOperations,
+  addNewOperation,
+  editProduct,
+  editOperation,
+} from 'src/features/items/items-slice';
+import { Product, Operation } from 'src/homeworks/ts1/3_write';
 import { useLocation } from 'react-router-dom';
+import { NewOperation, NewProduct } from 'src/features/items/items-consts';
+import {
+  // FormValues,
+  OperationFormValues,
+  ProductFormValues,
+} from 'src/features/items/item-form-modal-create/item-form-modal-consts';
 
 type Props = {
   mode: AdminActionType;
@@ -18,14 +30,14 @@ type Props = {
   onClose: () => void;
 };
 
-const ItemFormModal: FC<Props> = ({ mode, itemId, onClose }) => {
+const ItemFormModalEdit: FC<Props> = ({ mode, itemId, onClose }) => {
   const formElementRef = useRef<HTMLFormElement>(null);
   const autoFocusElementRef = useRef(null);
   const dispatch = useAppDispatch();
   const location = useLocation();
   const isProducts = location.pathname.includes('/products');
-  const products = useAppSelector((state) => state.items.products);
-  const operations = useAppSelector((state) => state.items.operations);
+  const products = useAppSelector(selectProducts);
+  const operations = useAppSelector(selectOperations);
 
   const existingItem = useMemo(() => {
     if (!itemId) return null;
@@ -40,6 +52,7 @@ const ItemFormModal: FC<Props> = ({ mode, itemId, onClose }) => {
       if (isProducts) {
         const product = existingItem as Product;
         return {
+          id: product.id,
           name: product.name,
           photo: product.photo,
           desc: product.desc || '',
@@ -51,6 +64,7 @@ const ItemFormModal: FC<Props> = ({ mode, itemId, onClose }) => {
       } else {
         const operation = existingItem as Operation;
         return {
+          id: operation.id,
           name: operation.name,
           desc: operation.desc || '',
           amount: operation.amount,
@@ -70,47 +84,43 @@ const ItemFormModal: FC<Props> = ({ mode, itemId, onClose }) => {
     };
   }, []);
 
-  const handleSubmit = (values: any) => {
-    const createdAt = existingItem ? existingItem.createdAt : new Date().toISOString();
-
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const handleSubmit = (values) => {
     if (isProducts) {
-      const product: Product = {
-        id: existingItem?.id || Date.now().toString(),
-        name: values.name,
-        photo: values.photo || '',
-        desc: values.desc,
-        price: values.price || 0,
-        oldPrice: values.oldPrice,
-        createdAt,
-        category: {
-          id: values.categoryId,
-          name: values.categoryName,
-        },
+      const v = values as ProductFormValues;
+
+      const product: Omit<NewProduct, 'createdAt'> = {
+        name: v.name,
+        photo: v.photo || '',
+        desc: v.desc,
+        price: v.price || 0,
+        oldPrice: v.oldPrice,
+        categoryId: v.categoryId,
       };
 
       if (existingItem) {
-        dispatch(updateProduct(product));
+        dispatch(editProduct({ id: existingItem.id, data: product }));
       } else {
-        dispatch(addProduct(product));
+        // dispatch(addNewProduct(product));
+        onClose();
       }
     } else {
-      const operation: Operation = {
-        id: existingItem?.id || Date.now().toString(),
-        name: values.name,
-        desc: values.desc,
-        amount: values.amount || 0,
-        type: values.type || 'Cost',
-        createdAt,
-        category: {
-          id: values.categoryId,
-          name: values.categoryName,
-        },
-      } as Operation;
+      const v = values as OperationFormValues;
+
+      const operation: NewOperation = {
+        name: v.name,
+        desc: v.desc,
+        amount: v.amount || 0,
+        type: (v.type as 'Cost' | 'Profit') || 'Cost',
+        date: new Date().toISOString(),
+        categoryId: values.categoryId,
+      };
 
       if (existingItem) {
-        dispatch(updateOperation(operation));
+        dispatch(editOperation({ id: existingItem.id, data: operation }));
       } else {
-        dispatch(addOperation(operation));
+        onClose();
       }
     }
 
@@ -140,4 +150,4 @@ const ItemFormModal: FC<Props> = ({ mode, itemId, onClose }) => {
   );
 };
 
-export default ItemFormModal;
+export default ItemFormModalEdit;

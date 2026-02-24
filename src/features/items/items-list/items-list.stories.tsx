@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import ItemsList from './items-list';
 import { Mode } from './items-list-consts';
-import { products, operations } from 'src/common/items-list/items-list-utils';
+import { products, operations } from 'src/features/items/items-list/items-list-utils';
 
 const meta: Meta<typeof ItemsList> = {
   title: 'Components/ItemsList',

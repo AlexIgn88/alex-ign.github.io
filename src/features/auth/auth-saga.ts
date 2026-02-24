@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { API, API_BASE_URL } from 'src/common/common-consts';
-import { SignUpBody, SignupSuccessResponse, ApiError } from 'src/features/auth/auth-consts';
+import { API, API_BASE_URL, ApiError } from 'src/common/common-consts';
+import { SignUpBody, SignupSuccessResponse } from 'src/features/auth/auth-consts';
 import { signupSagaRequest, signupSagaSuccess, signupSagaFailure } from './auth-slice';
 import { saveTokenToStorage } from './auth-thunks';
 import { setProfile } from 'src/features/profile/profile-slice';

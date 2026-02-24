@@ -17,12 +17,12 @@ const description =
   'The payment was categorized under “Food & Beverages” and deducted from your checking account.\n' +
   'The remaining balance after this transaction is $1,247.32.';
 
-export const OperationCardFullStory: Story = {
-  args: {
-    sum: 1546,
-    categoryName: 'Profit',
-    name: 'Profit for the day',
-    date: '01/01/1999',
-    description: description,
-  },
-};
+// export const OperationCardFullStory: Story = {
+//   args: {
+//     amount: 1546,
+//     category: { name: 'Profit' },
+//     name: 'Profit for the day',
+//     date: '01/01/1999',
+//     description: description,
+//   },
+// };

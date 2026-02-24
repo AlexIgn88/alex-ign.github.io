@@ -21,3 +21,18 @@
 .item {
   position: relative;
 }
+
+.orderCreated {
+  font-size: x-large;
+  font-weight: bold;
+}
+
+.cartControlButtonsPanel {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+  .cartControlButtons {
+    width: 157px;
+  }
+}
