@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import type { MiddlewareAPI } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import authReducer from '../features/auth/auth-slice';
 import profileReducer from '../features/profile/profile-slice';
@@ -26,3 +27,4 @@ sagaMiddleware.run(rootSaga);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+export type AppStore = MiddlewareAPI<AppDispatch, RootState>;

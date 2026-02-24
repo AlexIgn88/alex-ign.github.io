@@ -10,12 +10,14 @@ import { useNavigate } from 'react-router-dom';
 type AuthState = {
   token: string | null;
   isInitialized: boolean;
+  loading: boolean;
   error: ApiError[] | null;
 };
 
 const initialState: AuthState = {
   token: null,
   isInitialized: false,
+  loading: false,
   error: null,
 };
 
@@ -45,21 +47,27 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(signup.pending, (state) => {
+        state.loading = true;
         state.error = null;
       })
       .addCase(signup.fulfilled, (state) => {
+        state.loading = false;
         state.error = null;
       })
       .addCase(signup.rejected, (state, action) => {
+        state.loading = false;
         state.error = action.payload;
       })
       .addCase(signin.pending, (state) => {
+        state.loading = true;
         state.error = null;
       })
       .addCase(signin.fulfilled, (state) => {
+        state.loading = false;
         state.error = null;
       })
       .addCase(signin.rejected, (state, action) => {
+        state.loading = false;
         state.error = action.payload;
       });
   },
